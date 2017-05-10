@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/smart-baby-feeding.iml" filepath="$PROJECT_DIR$/smart-baby-feeding.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smartbabyfeeding.iml" filepath="$PROJECT_DIR$/smartbabyfeeding.iml" />
     </modules>
   </component>
 </project>

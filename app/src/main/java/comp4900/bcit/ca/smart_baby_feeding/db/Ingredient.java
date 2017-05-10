@@ -9,9 +9,6 @@ import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 
-import comp4900.bcit.ca.smart_baby_feeding.DaoSession;
-import comp4900.bcit.ca.smart_baby_feeding.IngredientDao;
-import comp4900.bcit.ca.smart_baby_feeding.RecipeDao;
 
 /**
  * Created by Pkao on 2017-05-10.
