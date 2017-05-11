@@ -1,4 +1,4 @@
-package a00907981.comp3717.bcit.ca.tabtest.db;
+package a00907981.comp3717.bcit.ca.tabtest.Database.tables;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
