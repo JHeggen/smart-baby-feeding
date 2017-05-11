@@ -1,4 +1,4 @@
-package comp4900.bcit.ca.smart_baby_feeding;
+package comp4900.bcit.ca.smart_baby_feeding.RecipeList;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -28,15 +28,17 @@ import com.woxthebox.draglistview.swipe.ListSwipeItem;
 
 import java.util.ArrayList;
 
-public class Recipe extends Fragment {
+import comp4900.bcit.ca.smart_baby_feeding.R;
+
+public class Recipes extends Fragment {
 
     private ArrayList<Pair<Long, String>> mItemArray;
     private DragListView mDragListView;
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
 
-    public static Recipe newInstance() {
-        return new Recipe();
+    public static Recipes newInstance() {
+        return new Recipes();
     }
 
 
@@ -112,7 +114,7 @@ public class Recipe extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Recipe");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Recipes");
     }
 
     @Override

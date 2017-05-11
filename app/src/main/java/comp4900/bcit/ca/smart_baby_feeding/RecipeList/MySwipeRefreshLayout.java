@@ -1,4 +1,4 @@
-package comp4900.bcit.ca.smart_baby_feeding;
+package comp4900.bcit.ca.smart_baby_feeding.RecipeList;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;

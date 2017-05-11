@@ -1,4 +1,4 @@
-package comp4900.bcit.ca.smart_baby_feeding;
+package comp4900.bcit.ca.smart_baby_feeding.RecipeList;
 
 /**
  * Created by Getry on 5/11/2017.
@@ -28,6 +28,8 @@ import com.woxthebox.draglistview.swipe.ListSwipeHelper;
 import com.woxthebox.draglistview.swipe.ListSwipeItem;
 
 import java.util.ArrayList;
+
+import comp4900.bcit.ca.smart_baby_feeding.R;
 
 public class Ingred extends Fragment {
 
