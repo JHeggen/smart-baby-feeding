@@ -19,7 +19,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <a00966547.comp3717.bcit.ca.copyrecipe.MySwipeRefreshLayout
+    <a00907981.comp3717.bcit.ca.tabtest.RecipeList.MySwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -35,5 +35,5 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </FrameLayout>
-    </a00966547.comp3717.bcit.ca.copyrecipe.MySwipeRefreshLayout>
+    </a00907981.comp3717.bcit.ca.tabtest.RecipeList.MySwipeRefreshLayout>
 </FrameLayout>

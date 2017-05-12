@@ -248,7 +248,7 @@ public class Recipes extends Fragment {
             }
             private void showFragment(Fragment fragment) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.activity_main, fragment, "fragment").commit();
+                transaction.replace(R.id.container, fragment, "fragment").commit();
             }
         }
     }
