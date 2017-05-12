@@ -48,14 +48,14 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/graph"
                 android:id="@+id/imageView5"
-                android:onClick="clockClick"/>
+                android:onClick="historyClick"/>
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/clock"
                 android:id="@+id/imageView4"
-                android:onClick="historyClick"/>
+                android:onClick="clockClick"/>
         </TableRow>
     </TableLayout>
 

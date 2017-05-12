@@ -18,7 +18,7 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_launcher);
 
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "sbf-db");
         Database db = helper.getWritableDb();

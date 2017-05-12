@@ -64,7 +64,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <include layout="@layout/timer_layout"/>
+                    <include layout="@layout/history_layout"/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -73,7 +74,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <include layout="@layout/history_layout"/>
+                    <include layout="@layout/timer_layout"/>
+
 
                 </LinearLayout>
 

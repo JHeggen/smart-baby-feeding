@@ -80,16 +80,16 @@ public class TabActivity extends AppCompatActivity {
         host.addTab(spec);
 
         switch(getFocus()){
-            case 1:
+            case 0:
                 host.setCurrentTab(0);
                 break;
-            case 2:
+            case 1:
                 host.setCurrentTab(1);
                 break;
-            case 3:
+            case 2:
                 host.setCurrentTab(2);
                 break;
-            case 4:
+            case 3:
                 host.setCurrentTab(3);
                 break;
             default:
