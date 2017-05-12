@@ -9,9 +9,6 @@ import org.greenrobot.greendao.annotation.ToMany;
 
 import java.util.List;
 
-import a00907981.comp3717.bcit.ca.tabtest.db.DaoSession;
-import a00907981.comp3717.bcit.ca.tabtest.db.IngredientDao;
-import a00907981.comp3717.bcit.ca.tabtest.db.RecipeDao;
 
 /**
  * Created by Pkao on 2017-05-10.
@@ -38,37 +35,37 @@ public class Ingredient {
 
     private String ingredient_baby_type;
 
-    private String energy;
+    private double energy;
 
-    private String prot;
+    private double prot;
 
-    private String cho;
+    private double cho;
 
-    private String fat;
+    private double fat;
 
-    private String na_mmol_l;
+    private double na_mmol_l;
 
-    private String k_mmol_l;
+    private double k_mmol_l;
 
-    private String cl_mmol_l;
+    private double cl_mmol_l;
 
-    private String ca_mmol_l;
+    private double ca_mmol_l;
 
-    private String po_mmol_l;
+    private double po_mmol_l;
 
-    private String mg_mmol_l;
+    private double mg_mmol_l;
 
-    private String iron_mg;
+    private double iron_mg;
 
-    private String vit_a_ug;
+    private double vit_a_ug;
 
-    private String vit_d_ug;
+    private double vit_d_ug;
 
-    private String folic_acid_ug;
+    private double folic_acid_ug;
 
-    private String mosm_l;
+    private double mosm_l;
 
-    private String mosm_kg;
+    private double mosm_kg;
 
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
@@ -78,13 +75,13 @@ public class Ingredient {
     @Generated(hash = 942581853)
     private transient IngredientDao myDao;
 
-    @Generated(hash = 1035309046)
+    @Generated(hash = 550600553)
     public Ingredient(Long ingre_id, String ingredient_name, String ingredient_unit,
-            String ingredient_phy_type, String ingredient_baby_type, String energy,
-            String prot, String cho, String fat, String na_mmol_l, String k_mmol_l,
-            String cl_mmol_l, String ca_mmol_l, String po_mmol_l, String mg_mmol_l,
-            String iron_mg, String vit_a_ug, String vit_d_ug, String folic_acid_ug,
-            String mosm_l, String mosm_kg) {
+            String ingredient_phy_type, String ingredient_baby_type, double energy,
+            double prot, double cho, double fat, double na_mmol_l, double k_mmol_l,
+            double cl_mmol_l, double ca_mmol_l, double po_mmol_l, double mg_mmol_l,
+            double iron_mg, double vit_a_ug, double vit_d_ug, double folic_acid_ug,
+            double mosm_l, double mosm_kg) {
         this.ingre_id = ingre_id;
         this.ingredient_name = ingredient_name;
         this.ingredient_unit = ingredient_unit;
@@ -152,131 +149,131 @@ public class Ingredient {
         this.ingredient_baby_type = ingredient_baby_type;
     }
 
-    public String getEnergy() {
+    public double getEnergy() {
         return this.energy;
     }
 
-    public void setEnergy(String energy) {
+    public void setEnergy(double energy) {
         this.energy = energy;
     }
 
-    public String getProt() {
+    public double getProt() {
         return this.prot;
     }
 
-    public void setProt(String prot) {
+    public void setProt(double prot) {
         this.prot = prot;
     }
 
-    public String getCho() {
+    public double getCho() {
         return this.cho;
     }
 
-    public void setCho(String cho) {
+    public void setCho(double cho) {
         this.cho = cho;
     }
 
-    public String getFat() {
+    public double getFat() {
         return this.fat;
     }
 
-    public void setFat(String fat) {
+    public void setFat(double fat) {
         this.fat = fat;
     }
 
-    public String getNa_mmol_l() {
+    public double getNa_mmol_l() {
         return this.na_mmol_l;
     }
 
-    public void setNa_mmol_l(String na_mmol_l) {
+    public void setNa_mmol_l(double na_mmol_l) {
         this.na_mmol_l = na_mmol_l;
     }
 
-    public String getK_mmol_l() {
+    public double getK_mmol_l() {
         return this.k_mmol_l;
     }
 
-    public void setK_mmol_l(String k_mmol_l) {
+    public void setK_mmol_l(double k_mmol_l) {
         this.k_mmol_l = k_mmol_l;
     }
 
-    public String getCl_mmol_l() {
+    public double getCl_mmol_l() {
         return this.cl_mmol_l;
     }
 
-    public void setCl_mmol_l(String cl_mmol_l) {
+    public void setCl_mmol_l(double cl_mmol_l) {
         this.cl_mmol_l = cl_mmol_l;
     }
 
-    public String getCa_mmol_l() {
+    public double getCa_mmol_l() {
         return this.ca_mmol_l;
     }
 
-    public void setCa_mmol_l(String ca_mmol_l) {
+    public void setCa_mmol_l(double ca_mmol_l) {
         this.ca_mmol_l = ca_mmol_l;
     }
 
-    public String getPo_mmol_l() {
+    public double getPo_mmol_l() {
         return this.po_mmol_l;
     }
 
-    public void setPo_mmol_l(String po_mmol_l) {
+    public void setPo_mmol_l(double po_mmol_l) {
         this.po_mmol_l = po_mmol_l;
     }
 
-    public String getMg_mmol_l() {
+    public double getMg_mmol_l() {
         return this.mg_mmol_l;
     }
 
-    public void setMg_mmol_l(String mg_mmol_l) {
+    public void setMg_mmol_l(double mg_mmol_l) {
         this.mg_mmol_l = mg_mmol_l;
     }
 
-    public String getIron_mg() {
+    public double getIron_mg() {
         return this.iron_mg;
     }
 
-    public void setIron_mg(String iron_mg) {
+    public void setIron_mg(double iron_mg) {
         this.iron_mg = iron_mg;
     }
 
-    public String getVit_a_ug() {
+    public double getVit_a_ug() {
         return this.vit_a_ug;
     }
 
-    public void setVit_a_ug(String vit_a_ug) {
+    public void setVit_a_ug(double vit_a_ug) {
         this.vit_a_ug = vit_a_ug;
     }
 
-    public String getVit_d_ug() {
+    public double getVit_d_ug() {
         return this.vit_d_ug;
     }
 
-    public void setVit_d_ug(String vit_d_ug) {
+    public void setVit_d_ug(double vit_d_ug) {
         this.vit_d_ug = vit_d_ug;
     }
 
-    public String getFolic_acid_ug() {
+    public double getFolic_acid_ug() {
         return this.folic_acid_ug;
     }
 
-    public void setFolic_acid_ug(String folic_acid_ug) {
+    public void setFolic_acid_ug(double folic_acid_ug) {
         this.folic_acid_ug = folic_acid_ug;
     }
 
-    public String getMosm_l() {
+    public double getMosm_l() {
         return this.mosm_l;
     }
 
-    public void setMosm_l(String mosm_l) {
+    public void setMosm_l(double mosm_l) {
         this.mosm_l = mosm_l;
     }
 
-    public String getMosm_kg() {
+    public double getMosm_kg() {
         return this.mosm_kg;
     }
 
-    public void setMosm_kg(String mosm_kg) {
+    public void setMosm_kg(double mosm_kg) {
         this.mosm_kg = mosm_kg;
     }
 
