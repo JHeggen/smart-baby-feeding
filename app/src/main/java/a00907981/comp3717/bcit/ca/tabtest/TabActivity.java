@@ -61,39 +61,39 @@ public class TabActivity extends AppCompatActivity {
 
         TabHost.TabSpec spec = host.newTabSpec("Tab1");
         spec.setContent(R.id.tab1);
-        spec.setIndicator("Tab1");
+        spec.setIndicator("Feed");
         host.addTab(spec);
 
         spec = host.newTabSpec("Tab2");
         spec.setContent(R.id.tab2);
-        spec.setIndicator("Tab2");
+        spec.setIndicator("Recipes");
         host.addTab(spec);
 
         spec = host.newTabSpec("Tab3");
         spec.setContent(R.id.tab3);
-        spec.setIndicator("Tab3");
+        spec.setIndicator("History");
         host.addTab(spec);
 
         spec = host.newTabSpec("Tab4");
         spec.setContent(R.id.tab4);
-        spec.setIndicator("Tab4");
+        spec.setIndicator("Alarm");
         host.addTab(spec);
 
         switch(getFocus()){
             case 1:
-                host.setCurrentTab(1);
+                host.setCurrentTab(0);
                 break;
             case 2:
-                host.setCurrentTab(2);
+                host.setCurrentTab(1);
                 break;
             case 3:
-                host.setCurrentTab(3);
+                host.setCurrentTab(2);
                 break;
             case 4:
-                host.setCurrentTab(4);
+                host.setCurrentTab(3);
                 break;
             default:
-                host.setCurrentTab(1);
+                host.setCurrentTab(0);
                 break;
         }
     }
