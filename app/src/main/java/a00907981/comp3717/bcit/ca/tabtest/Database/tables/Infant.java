@@ -9,11 +9,6 @@ import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 
-import a00907981.comp3717.bcit.ca.tabtest.db.DaoSession;
-import a00907981.comp3717.bcit.ca.tabtest.db.HistoryDao;
-import a00907981.comp3717.bcit.ca.tabtest.db.InfantDao;
-import a00907981.comp3717.bcit.ca.tabtest.db.RemindersDao;
-
 /**
  * Created by Pkao on 2017-05-10.
  */

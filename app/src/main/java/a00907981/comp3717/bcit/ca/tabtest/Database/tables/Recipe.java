@@ -15,45 +15,45 @@ class Recipe {
 
     private String recipe_name;
 
-    private String energy_total;
+    private double energy_total;
 
-    private String prot_total;
+    private double prot_total;
 
-    private String cho_total;
+    private double cho_total;
 
-    private String fat_total;
+    private double fat_total;
 
-    private String na_total;
+    private double na_total;
 
-    private String k_total;
+    private double k_total;
 
-    private String cl_total;
+    private double cl_total;
 
-    private String ca_total;
+    private double ca_total;
 
-    private String po_total;
+    private double po_total;
 
-    private String mg_total;
+    private double mg_total;
 
-    private String iron_total;
+    private double iron_total;
 
-    private String vit_a_total;
+    private double vit_a_total;
 
-    private String vit_d_total;
+    private double vit_d_total;
 
-    private String folic_acid_total;
+    private double folic_acid_total;
 
-    private String mosm_l_total;
+    private double mosm_l_total;
 
-    private String mosm_kg_total;
+    private double mosm_kg_total;
 
-    @Generated(hash = 471506081)
-    public Recipe(Long recipe_id, String recipe_name, String energy_total,
-            String prot_total, String cho_total, String fat_total, String na_total,
-            String k_total, String cl_total, String ca_total, String po_total,
-            String mg_total, String iron_total, String vit_a_total,
-            String vit_d_total, String folic_acid_total, String mosm_l_total,
-            String mosm_kg_total) {
+    @Generated(hash = 1105725554)
+    public Recipe(Long recipe_id, String recipe_name, double energy_total,
+            double prot_total, double cho_total, double fat_total, double na_total,
+            double k_total, double cl_total, double ca_total, double po_total,
+            double mg_total, double iron_total, double vit_a_total,
+            double vit_d_total, double folic_acid_total, double mosm_l_total,
+            double mosm_kg_total) {
         this.recipe_id = recipe_id;
         this.recipe_name = recipe_name;
         this.energy_total = energy_total;
@@ -94,131 +94,133 @@ class Recipe {
         this.recipe_name = recipe_name;
     }
 
-    public String getEnergy_total() {
+    public double getEnergy_total() {
         return this.energy_total;
     }
 
-    public void setEnergy_total(String energy_total) {
+    public void setEnergy_total(double energy_total) {
         this.energy_total = energy_total;
     }
 
-    public String getProt_total() {
+    public double getProt_total() {
         return this.prot_total;
     }
 
-    public void setProt_total(String prot_total) {
+    public void setProt_total(double prot_total) {
         this.prot_total = prot_total;
     }
 
-    public String getCho_total() {
+    public double getCho_total() {
         return this.cho_total;
     }
 
-    public void setCho_total(String cho_total) {
+    public void setCho_total(double cho_total) {
         this.cho_total = cho_total;
     }
 
-    public String getFat_total() {
+    public double getFat_total() {
         return this.fat_total;
     }
 
-    public void setFat_total(String fat_total) {
+    public void setFat_total(double fat_total) {
         this.fat_total = fat_total;
     }
 
-    public String getNa_total() {
+    public double getNa_total() {
         return this.na_total;
     }
 
-    public void setNa_total(String na_total) {
+    public void setNa_total(double na_total) {
         this.na_total = na_total;
     }
 
-    public String getK_total() {
+    public double getK_total() {
         return this.k_total;
     }
 
-    public void setK_total(String k_total) {
+    public void setK_total(double k_total) {
         this.k_total = k_total;
     }
 
-    public String getCl_total() {
+    public double getCl_total() {
         return this.cl_total;
     }
 
-    public void setCl_total(String cl_total) {
+    public void setCl_total(double cl_total) {
         this.cl_total = cl_total;
     }
 
-    public String getCa_total() {
+    public double getCa_total() {
         return this.ca_total;
     }
 
-    public void setCa_total(String ca_total) {
+    public void setCa_total(double ca_total) {
         this.ca_total = ca_total;
     }
 
-    public String getPo_total() {
+    public double getPo_total() {
         return this.po_total;
     }
 
-    public void setPo_total(String po_total) {
+    public void setPo_total(double po_total) {
         this.po_total = po_total;
     }
 
-    public String getMg_total() {
+    public double getMg_total() {
         return this.mg_total;
     }
 
-    public void setMg_total(String mg_total) {
+    public void setMg_total(double mg_total) {
         this.mg_total = mg_total;
     }
 
-    public String getIron_total() {
+    public double getIron_total() {
         return this.iron_total;
     }
 
-    public void setIron_total(String iron_total) {
+    public void setIron_total(double iron_total) {
         this.iron_total = iron_total;
     }
 
-    public String getVit_a_total() {
+    public double getVit_a_total() {
         return this.vit_a_total;
     }
 
-    public void setVit_a_total(String vit_a_total) {
+    public void setVit_a_total(double vit_a_total) {
         this.vit_a_total = vit_a_total;
     }
 
-    public String getVit_d_total() {
+    public double getVit_d_total() {
         return this.vit_d_total;
     }
 
-    public void setVit_d_total(String vit_d_total) {
+    public void setVit_d_total(double vit_d_total) {
         this.vit_d_total = vit_d_total;
     }
 
-    public String getFolic_acid_total() {
+    public double getFolic_acid_total() {
         return this.folic_acid_total;
     }
 
-    public void setFolic_acid_total(String folic_acid_total) {
+    public void setFolic_acid_total(double folic_acid_total) {
         this.folic_acid_total = folic_acid_total;
     }
 
-    public String getMosm_l_total() {
+    public double getMosm_l_total() {
         return this.mosm_l_total;
     }
 
-    public void setMosm_l_total(String mosm_l_total) {
+    public void setMosm_l_total(double mosm_l_total) {
         this.mosm_l_total = mosm_l_total;
     }
 
-    public String getMosm_kg_total() {
+    public double getMosm_kg_total() {
         return this.mosm_kg_total;
     }
 
-    public void setMosm_kg_total(String mosm_kg_total) {
+    public void setMosm_kg_total(double mosm_kg_total) {
         this.mosm_kg_total = mosm_kg_total;
     }
+
+
 }
