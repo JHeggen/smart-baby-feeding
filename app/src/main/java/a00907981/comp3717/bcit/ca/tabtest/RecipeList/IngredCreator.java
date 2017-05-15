@@ -17,13 +17,14 @@ import a00907981.comp3717.bcit.ca.tabtest.R;
 
 public class IngredCreator extends DialogFragment {
     AlertDialog.Builder builder;
-
-
+    EditText name;
+    EditText id;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.ingred_create_frag, new RelativeLayout(getActivity()));
-
+        name = (EditText) view.findViewById(R.id.ingredName_edit);
+        id = (EditText) view.findViewById(R.id.ingredUnit);
         builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         Button dismiss = (Button) view.findViewById(R.id.ingred_submit);
@@ -31,7 +32,20 @@ public class IngredCreator extends DialogFragment {
 
             @Override
             public void onClick(View v) {
-                dismiss();
+                if (name.getText().toString().trim().equals("")) {
+                    name.setError("Ingrediant Name is Required!");
+                    name.setHint("Please enter Ingrediant Name");
+                } else if (id.getText().toString().trim().equals("")) {
+                    id.setError("Unit Messurement is Required!");
+                    id.setHint("Please enter Unit Messurement");
+
+                } else {
+                    /**
+                     * We will call the edittext here and quarry into the database for the name. If it exists we will return an error
+                     * and have them input again. Otherwise we will input it into the database.
+                     */
+                    dismiss();
+                }
             }
         });
         return builder.show();

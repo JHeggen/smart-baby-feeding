@@ -2,13 +2,11 @@ package a00907981.comp3717.bcit.ca.tabtest.RecipeList;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import a00907981.comp3717.bcit.ca.tabtest.R;
@@ -20,11 +18,12 @@ import a00907981.comp3717.bcit.ca.tabtest.R;
 public class RecipeNameCreator extends DialogFragment{
 
     AlertDialog.Builder builder;
+    EditText name;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.recipe_name_frag, new RelativeLayout(getActivity()));
-        EditText name = (EditText) view.findViewById(R.id.recipe_name_edit);
+        name = (EditText) view.findViewById(R.id.recipe_name_edit);
         builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         Button dismiss = (Button) view.findViewById(R.id.recipe_submit);
@@ -33,9 +32,18 @@ public class RecipeNameCreator extends DialogFragment{
             @Override
             public void onClick(View v) {
 
-                dismiss();
-            }
-        });
+                if(name.getText().toString().trim().equals("")){
+                    name.setError("Recipe Name is Required!");
+                    name.setHint("Please enter Recipe Name");
+                } else {
+                    /**
+                     * We will call the edittext here and quarry into the database for the name. If it exists we will return an error
+                     * and have them input again. Otherwise we will input it into the database.
+                     */
+                    dismiss();
+                    ;
+                }
+        }});
         return builder.show();
     }
 }
