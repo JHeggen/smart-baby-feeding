@@ -108,7 +108,7 @@ public class Recipes extends Fragment {
         for (int i = 0; i < 40; i++) {
             mItemArray.add(new Pair<>((long) i, "Item " + i));
         }
-         */
+        */
 
         mRefreshLayout.setScrollingView(mDragListView.getRecyclerView());
         mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.app_color));
@@ -140,6 +140,7 @@ public class Recipes extends Fragment {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.addToBackStack(null);
                     transaction.replace(R.id.container, Ingred.newInstance(mItemArray.get(pos).second), "fragment").commit();
 
                 }

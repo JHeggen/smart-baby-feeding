@@ -54,6 +54,21 @@ public class Ingred extends Fragment {
     public void setRecipeName(String name) {
         recipeName = name;
     }
+
+    public boolean onSupportNavigateUp(){
+
+        if (getFragmentManager().getBackStackEntryCount() > 0){
+            boolean done = getFragmentManager().popBackStackImmediate();
+            return done;
+        }
+        return true;
+    }
+    public void onBackPressed() {
+        // your code.
+        if (getFragmentManager().getBackStackEntryCount() > 0){
+            boolean done = getFragmentManager().popBackStackImmediate();
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_layout, container, false);
@@ -77,6 +92,7 @@ public class Ingred extends Fragment {
 
             }
         });
+
 
         mDragListView.setDragListListener(new DragListView.DragListListenerAdapter() {
             @Override
