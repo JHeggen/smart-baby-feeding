@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/ingredName_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Ingrediant Name">
+        <requestFocus />
+    </EditText>
+    <EditText
+        android:id="@+id/ingredUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/ingredName_edit"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="Amounts of units">
+        <requestFocus />
+    </EditText>
+    <EditText
+        android:id="@+id/phy_type_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/ingredUnit"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Phy type">
+        <requestFocus />
+    </EditText>
+    <EditText
+        android:id="@+id/cho_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/phy_type_edit"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Cho">
+        <requestFocus />
+    </EditText>
+    <EditText
+        android:id="@+id/fat_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/cho_edit"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Fat">
+        <requestFocus />
+    </EditText>
+    <Button
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fat_edit"
+        android:id="@+id/ingred_submit"
+        android:text="submit" />
+</RelativeLayout>

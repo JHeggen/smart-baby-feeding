@@ -51,6 +51,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+
                     <include layout="@layout/recipe_list_layout"/>
                 </LinearLayout>
 
