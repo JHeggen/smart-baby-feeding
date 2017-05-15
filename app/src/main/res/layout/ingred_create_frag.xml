@@ -72,5 +72,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/fat_edit"
         android:id="@+id/ingred_submit"
-        android:text="submit" />
+        android:text="add" />
 </RelativeLayout>

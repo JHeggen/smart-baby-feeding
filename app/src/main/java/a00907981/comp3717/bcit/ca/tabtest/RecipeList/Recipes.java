@@ -29,7 +29,6 @@ import com.woxthebox.draglistview.swipe.ListSwipeHelper;
 import com.woxthebox.draglistview.swipe.ListSwipeItem;
 
 import java.util.ArrayList;
-import android.app.AlertDialog;
 
 import a00907981.comp3717.bcit.ca.tabtest.R;
 
@@ -102,12 +101,13 @@ public class Recipes extends Fragment {
                 }
             }
         });
-
+        /**
         mItemArray = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
             RecipeName temp = new RecipeName("Item " + i);
             mItemArray.add(new Pair<>((long) i, temp));
         }
+         */
 
         mRefreshLayout.setScrollingView(mDragListView.getRecyclerView());
         mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.app_color));
@@ -280,7 +280,8 @@ public class Recipes extends Fragment {
 
             @Override
             public void onItemClicked(View view) {
-                showFragment(Ingred.newInstance());
+
+
             }
 
             @Override
