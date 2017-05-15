@@ -19,12 +19,23 @@ public class IngredCreator extends DialogFragment {
     AlertDialog.Builder builder;
     EditText name;
     EditText id;
+    String ingName;
+
+    public static IngredCreator newInstance(String name) {
+        IngredCreator temp = new IngredCreator();
+        temp.setName(name);
+        return temp;
+    }
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.ingred_create_frag, new RelativeLayout(getActivity()));
         name = (EditText) view.findViewById(R.id.ingredName_edit);
         id = (EditText) view.findViewById(R.id.ingredUnit);
+        if(ingName != "") {
+            name.setText(ingName);
+        }
         builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         Button dismiss = (Button) view.findViewById(R.id.ingred_submit);
@@ -49,5 +60,9 @@ public class IngredCreator extends DialogFragment {
             }
         });
         return builder.show();
+    }
+    public void setName(String rName) {
+        ingName = rName;
+
     }
 }

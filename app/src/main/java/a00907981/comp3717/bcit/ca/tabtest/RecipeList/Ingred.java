@@ -9,12 +9,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,17 +29,21 @@ import com.woxthebox.draglistview.swipe.ListSwipeItem;
 
 import java.util.ArrayList;
 
+import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Ingredient;
 import a00907981.comp3717.bcit.ca.tabtest.R;
 
 public class Ingred extends Fragment {
 
-    private ArrayList<Pair<Long, String>> mItemArray;
+    private ArrayList<Pair<Long, Ingredient>> mItemArray;
     private DragListView mDragListView;
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
+    private static String recipeName;
 
-    public static Ingred newInstance() {
-        return new Ingred();
+    public static Ingred newInstance(String name) {
+        Ingred temp = new Ingred();
+        temp.setRecipeName(name);
+        return temp;
     }
 
     @Override
@@ -49,7 +51,9 @@ public class Ingred extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
+    public void setRecipeName(String name) {
+        recipeName = name;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_layout, container, false);
@@ -124,7 +128,19 @@ public class Ingred extends Fragment {
             public void onItemSwipeEnded(ListSwipeItem item, ListSwipeItem.SwipeDirection swipedDirection) {
                 mRefreshLayout.setEnabled(true);
 
-                // Swipe to delete on left
+                if (swipedDirection == ListSwipeItem.SwipeDirection.LEFT) {
+
+                    Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
+                    int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+
+
+                    IngredCreator rNameCreate = IngredCreator.newInstance(mItemArray.get(pos).second.getIngredient_name());
+                    rNameCreate.show(fm,"ingreddialog");
+
+                }
+
+                // Swipe to delete on Right
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
@@ -166,13 +182,13 @@ public class Ingred extends Fragment {
             dragView.findViewById(R.id.item_layout).setBackgroundColor(dragView.getResources().getColor(R.color.list_item_background));
         }
     }
-    class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHolder> {
+    class ItemAdapter extends DragItemAdapter<Pair<Long, Ingredient>, ItemAdapter.ViewHolder> {
 
         private int mLayoutId;
         private int mGrabHandleId;
         private boolean mDragOnLongPress;
 
-        ItemAdapter(ArrayList<Pair<Long, String>> list, int layoutId, int grabHandleId, boolean dragOnLongPress) {
+        ItemAdapter(ArrayList<Pair<Long, Ingredient>> list, int layoutId, int grabHandleId, boolean dragOnLongPress) {
             mLayoutId = layoutId;
             mGrabHandleId = grabHandleId;
             mDragOnLongPress = dragOnLongPress;
@@ -189,7 +205,7 @@ public class Ingred extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             super.onBindViewHolder(holder, position);
-            String text = mItemList.get(position).second;
+            String text = mItemList.get(position).second.getIngredient_name();
             holder.mText.setText(text);
             holder.itemView.setTag(mItemList.get(position));
         }

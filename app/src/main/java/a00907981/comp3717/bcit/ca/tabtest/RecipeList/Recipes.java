@@ -63,12 +63,21 @@ public class Recipes extends Fragment {
             @Override
             public void onClick(View v)
             {
+
+
                 // do something
                 FragmentManager fm = getActivity().getSupportFragmentManager();
 
 
                 RecipeNameCreator rNameCreate = new RecipeNameCreator();
                 rNameCreate.show(fm,"Dialog");
+                mItemArray = new ArrayList<>();
+                /**
+                 * Quarry into the Recipe and gathe all the names to input into the
+                 * array list using mIemArray.add(new Pair<>((long) i, Recipename from quarry));
+                 * using a for loop to populate
+                 */
+                setupListRecyclerView();
 
 
 
@@ -97,8 +106,7 @@ public class Recipes extends Fragment {
         /**
         mItemArray = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
-            RecipeName temp = new RecipeName("Item " + i);
-            mItemArray.add(new Pair<>((long) i, temp));
+            mItemArray.add(new Pair<>((long) i, "Item " + i));
         }
          */
 
@@ -128,11 +136,11 @@ public class Recipes extends Fragment {
 
                 // Swipe to delete on left
                 if (swipedDirection == ListSwipeItem.SwipeDirection.LEFT) {
+
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
-
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.container, Ingred.newInstance(), "fragment").commit();
+                    transaction.replace(R.id.container, Ingred.newInstance(mItemArray.get(pos).second), "fragment").commit();
 
                 }
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
@@ -222,6 +230,7 @@ public class Recipes extends Fragment {
 
             @Override
             public void onItemClicked(View view) {
+
 
 
             }
