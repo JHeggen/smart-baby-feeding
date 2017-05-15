@@ -13,13 +13,15 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
+
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <a00966547.comp3717.bcit.ca.copyrecipe.MySwipeRefreshLayout
+
+    <a00907981.comp3717.bcit.ca.tabtest.RecipeList.MySwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -34,6 +36,26 @@
                 android:id="@+id/drag_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp" >
+                <Button
+                    android:layout_width="96dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/add_button"
+                    android:text="Add" />
+                </RelativeLayout>
+
         </FrameLayout>
-    </a00966547.comp3717.bcit.ca.copyrecipe.MySwipeRefreshLayout>
+
+    </a00907981.comp3717.bcit.ca.tabtest.RecipeList.MySwipeRefreshLayout>
+
+
+
 </FrameLayout>
+

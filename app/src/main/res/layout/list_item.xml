@@ -31,7 +31,7 @@
         android:background="#ff0000"
         android:gravity="start|center_vertical"
         android:padding="16dp"
-        android:text="Red"
+        android:text="Delete"
         android:textColor="@android:color/white"
         android:textSize="20sp"/>
 
@@ -44,7 +44,7 @@
         android:background="#0000ff"
         android:gravity="end|center_vertical"
         android:padding="16dp"
-        android:text="Blue"
+        android:text="Edit"
         android:textColor="@android:color/white"
         android:textSize="20sp"/>
 
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@drawable/baby_bottle_b"/>
 
         <TextView
             android:id="@+id/text"

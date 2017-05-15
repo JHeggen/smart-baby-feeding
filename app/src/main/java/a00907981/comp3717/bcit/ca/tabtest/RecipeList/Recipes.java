@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
@@ -17,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +37,11 @@ import a00907981.comp3717.bcit.ca.tabtest.R;
  */
 
 public class Recipes extends Fragment {
-    private ArrayList<Pair<Long, String>> mItemArray;
+    private ArrayList<Pair<Long, RecipeName>> mItemArray;
     private DragListView mDragListView;
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
+    private String newRecipeName;
 
     public static Recipes newInstance() {
         return new Recipes();
@@ -49,18 +52,45 @@ public class Recipes extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+    public void setRecipeName(String name) {
+        newRecipeName = name;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.list_layout, container, false);
         mRefreshLayout = (MySwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         mDragListView = (DragListView) view.findViewById(R.id.drag_list_view);
         mDragListView.getRecyclerView().setVerticalScrollBarEnabled(true);
+        Button button = (Button) view.findViewById(R.id.add_button);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // do something
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+
+
+                RecipeNameCreator rNameCreate = new RecipeNameCreator();
+                rNameCreate.show(fm,"Dialog");
+
+
+
+            }
+        });
+
         mDragListView.setDragListListener(new DragListView.DragListListenerAdapter() {
             @Override
             public void onItemDragStarted(int position) {
                 mRefreshLayout.setEnabled(false);
                 Toast.makeText(mDragListView.getContext(), "Start - position: " + position, Toast.LENGTH_SHORT).show();
+            }
+            private void showFragment(Fragment fragment) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment, "fragment").commit();
             }
 
             @Override
@@ -71,11 +101,13 @@ public class Recipes extends Fragment {
                 }
             }
         });
-
+        /**
         mItemArray = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
-            mItemArray.add(new Pair<>((long) i, "Item " + i));
+            RecipeName temp = new RecipeName("Item " + i);
+            mItemArray.add(new Pair<>((long) i, temp));
         }
+         */
 
         mRefreshLayout.setScrollingView(mDragListView.getRecyclerView());
         mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.app_color));
@@ -103,10 +135,19 @@ public class Recipes extends Fragment {
 
                 // Swipe to delete on left
                 if (swipedDirection == ListSwipeItem.SwipeDirection.LEFT) {
+                    Pair<Long, RecipeName> adapterItem = (Pair<Long, RecipeName>) item.getTag();
+                    int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
+
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.container, Ingred.newInstance(), "fragment").commit();
+
+                }
+                if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
                     mDragListView.getAdapter().removeItem(pos);
                 }
+
             }
         });
 
@@ -124,6 +165,7 @@ public class Recipes extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_list, menu);
+
     }
 
     @Override
@@ -195,13 +237,13 @@ public class Recipes extends Fragment {
             dragView.findViewById(R.id.item_layout).setBackgroundColor(dragView.getResources().getColor(R.color.list_item_background));
         }
     }
-    class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHolder> {
+    class ItemAdapter extends DragItemAdapter<Pair<Long, RecipeName>, ItemAdapter.ViewHolder> {
 
         private int mLayoutId;
         private int mGrabHandleId;
         private boolean mDragOnLongPress;
 
-        ItemAdapter(ArrayList<Pair<Long, String>> list, int layoutId, int grabHandleId, boolean dragOnLongPress) {
+        ItemAdapter(ArrayList<Pair<Long, RecipeName>> list, int layoutId, int grabHandleId, boolean dragOnLongPress) {
             mLayoutId = layoutId;
             mGrabHandleId = grabHandleId;
             mDragOnLongPress = dragOnLongPress;
@@ -218,7 +260,7 @@ public class Recipes extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             super.onBindViewHolder(holder, position);
-            String text = mItemList.get(position).second;
+            String text = mItemList.get(position).second.getrName();
             holder.mText.setText(text);
             holder.itemView.setTag(mItemList.get(position));
         }
@@ -238,7 +280,8 @@ public class Recipes extends Fragment {
 
             @Override
             public void onItemClicked(View view) {
-                showFragment(Ingred.newInstance());
+
+
             }
 
             @Override
@@ -248,7 +291,7 @@ public class Recipes extends Fragment {
             }
             private void showFragment(Fragment fragment) {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.activity_main, fragment, "fragment").commit();
+                transaction.replace(R.id.container, fragment, "fragment").commit();
             }
         }
     }

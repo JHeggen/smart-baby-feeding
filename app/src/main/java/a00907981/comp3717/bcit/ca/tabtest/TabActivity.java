@@ -1,9 +1,11 @@
 package a00907981.comp3717.bcit.ca.tabtest;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.TabHost;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -14,6 +16,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import a00907981.comp3717.bcit.ca.tabtest.RecipeList.Recipes;
 
 public class TabActivity extends AppCompatActivity {
 
@@ -27,6 +31,7 @@ public class TabActivity extends AppCompatActivity {
 
         createTabs();
         createChart();
+        showFragment(Recipes.newInstance());
 
     }
 
@@ -102,5 +107,9 @@ public class TabActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int focus = intent.getIntExtra("tab", 1);
         return focus;
+    }
+    private void showFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment, "fragment").commit();
     }
 }
