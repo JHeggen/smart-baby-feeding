@@ -19,16 +19,12 @@ import a00907981.comp3717.bcit.ca.tabtest.R;
 
 public class RecipeNameCreator extends DialogFragment{
 
-
-
     AlertDialog.Builder builder;
 
-
-    EditText getName;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.recipe_name_frag, new RelativeLayout(getActivity()));
-        getName = (EditText) view.findViewById(R.id.recipe_name_edit);
+        EditText name = (EditText) view.findViewById(R.id.recipe_name_edit);
         builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
         Button dismiss = (Button) view.findViewById(R.id.recipe_submit);
@@ -36,6 +32,7 @@ public class RecipeNameCreator extends DialogFragment{
 
             @Override
             public void onClick(View v) {
+
                 dismiss();
             }
         });

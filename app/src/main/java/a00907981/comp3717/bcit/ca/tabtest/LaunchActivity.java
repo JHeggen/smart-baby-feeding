@@ -1,8 +1,12 @@
 package a00907981.comp3717.bcit.ca.tabtest;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.greenrobot.greendao.database.Database;
@@ -20,11 +24,26 @@ public class LaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
+        ActionBar ab = getSupportActionBar();
+        ab.setIcon(R.drawable.ducky);
+
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "sbf-db");
         Database db = helper.getWritableDb();
         DaoSession daoSession = new DaoMaster(db).newSession();
         //DaoSession daoSession = ((App) getApplication()).getDaoSession();
         populateDB(daoSession);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_bar, menu);
+        return true;
+    }
+
+    public void goToSettings(MenuItem item){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     public void feedClick(View view){

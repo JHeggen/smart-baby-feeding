@@ -152,22 +152,6 @@ public class Ingred extends Fragment {
         mDragListView.setCustomDragItem(new MyDragItem(getContext(), R.layout.list_item));
     }
 
-    private void setupGridVerticalRecyclerView() {
-        mDragListView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        ItemAdapter listAdapter = new ItemAdapter(mItemArray, R.layout.grid_item, R.id.item_layout, true);
-        mDragListView.setAdapter(listAdapter, true);
-        mDragListView.setCanDragHorizontally(true);
-        mDragListView.setCustomDragItem(null);
-
-    }
-
-    private void setupGridHorizontalRecyclerView() {
-        mDragListView.setLayoutManager(new GridLayoutManager(getContext(), 4, LinearLayoutManager.HORIZONTAL, false));
-        ItemAdapter listAdapter = new ItemAdapter(mItemArray, R.layout.grid_item, R.id.item_layout, true);
-        mDragListView.setAdapter(listAdapter, true);
-        mDragListView.setCanDragHorizontally(true);
-        mDragListView.setCustomDragItem(null);
-    }
 
     private static class MyDragItem extends DragItem {
 
@@ -232,10 +216,6 @@ public class Ingred extends Fragment {
             public boolean onItemLongClicked(View view) {
                 Toast.makeText(view.getContext(), "Item long clicked", Toast.LENGTH_SHORT).show();
                 return true;
-            }
-            private void showFragment(Fragment fragment) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.activity_main, fragment, "fragment").commit();
             }
         }
     }
