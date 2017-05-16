@@ -9,12 +9,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,9 +37,12 @@ public class Ingred extends Fragment {
     private DragListView mDragListView;
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
+    private static String recipeName;
 
-    public static Ingred newInstance() {
-        return new Ingred();
+    public static Ingred newInstance(String name) {
+        Ingred temp = new Ingred();
+        temp.setRecipeName(name);
+        return temp;
     }
 
     @Override
@@ -49,7 +50,24 @@ public class Ingred extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    public void setRecipeName(String name) {
+        recipeName = name;
+    }
 
+    public boolean onSupportNavigateUp(){
+
+        if (getFragmentManager().getBackStackEntryCount() > 0){
+            boolean done = getFragmentManager().popBackStackImmediate();
+            return done;
+        }
+        return true;
+    }
+    public void onBackPressed() {
+        // your code.
+        if (getFragmentManager().getBackStackEntryCount() > 0){
+            boolean done = getFragmentManager().popBackStackImmediate();
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_layout, container, false);
@@ -73,6 +91,7 @@ public class Ingred extends Fragment {
 
             }
         });
+
 
         mDragListView.setDragListListener(new DragListView.DragListListenerAdapter() {
             @Override
@@ -124,7 +143,19 @@ public class Ingred extends Fragment {
             public void onItemSwipeEnded(ListSwipeItem item, ListSwipeItem.SwipeDirection swipedDirection) {
                 mRefreshLayout.setEnabled(true);
 
-                // Swipe to delete on left
+                if (swipedDirection == ListSwipeItem.SwipeDirection.LEFT) {
+
+                    Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
+                    int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+
+
+                    IngredCreator rNameCreate = IngredCreator.newInstance(mItemArray.get(pos).second);
+                    rNameCreate.show(fm,"ingreddialog");
+
+                }
+
+                // Swipe to delete on Right
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);

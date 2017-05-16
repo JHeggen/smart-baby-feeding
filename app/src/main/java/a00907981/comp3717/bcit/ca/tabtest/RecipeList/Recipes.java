@@ -10,12 +10,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -37,11 +33,10 @@ import a00907981.comp3717.bcit.ca.tabtest.R;
  */
 
 public class Recipes extends Fragment {
-    private ArrayList<Pair<Long, RecipeName>> mItemArray;
+    private ArrayList<Pair<Long, String>> mItemArray;
     private DragListView mDragListView;
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
-    private String newRecipeName;
 
     public static Recipes newInstance() {
         return new Recipes();
@@ -52,9 +47,7 @@ public class Recipes extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-    public void setRecipeName(String name) {
-        newRecipeName = name;
-    }
+
 
 
     @Override
@@ -70,12 +63,21 @@ public class Recipes extends Fragment {
             @Override
             public void onClick(View v)
             {
+
+
                 // do something
                 FragmentManager fm = getActivity().getSupportFragmentManager();
 
 
                 RecipeNameCreator rNameCreate = new RecipeNameCreator();
                 rNameCreate.show(fm,"Dialog");
+                mItemArray = new ArrayList<>();
+                /**
+                 * Quarry into the Recipe and gathe all the names to input into the
+                 * array list using mIemArray.add(new Pair<>((long) i, Recipename from quarry));
+                 * using a for loop to populate
+                 */
+                setupListRecyclerView();
 
 
 
@@ -104,10 +106,9 @@ public class Recipes extends Fragment {
         /**
         mItemArray = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
-            RecipeName temp = new RecipeName("Item " + i);
-            mItemArray.add(new Pair<>((long) i, temp));
+            mItemArray.add(new Pair<>((long) i, "Item " + i));
         }
-         */
+        */
 
         mRefreshLayout.setScrollingView(mDragListView.getRecyclerView());
         mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.app_color));
@@ -135,11 +136,12 @@ public class Recipes extends Fragment {
 
                 // Swipe to delete on left
                 if (swipedDirection == ListSwipeItem.SwipeDirection.LEFT) {
-                    Pair<Long, RecipeName> adapterItem = (Pair<Long, RecipeName>) item.getTag();
-                    int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
 
+                    Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
+                    int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.container, Ingred.newInstance(), "fragment").commit();
+                    transaction.addToBackStack(null);
+                    transaction.replace(R.id.container, Ingred.newInstance(mItemArray.get(pos).second), "fragment").commit();
 
                 }
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
@@ -161,43 +163,7 @@ public class Recipes extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Recipe");
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_list, menu);
 
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.action_disable_drag).setVisible(mDragListView.isDragEnabled());
-        menu.findItem(R.id.action_enable_drag).setVisible(!mDragListView.isDragEnabled());
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_disable_drag:
-                mDragListView.setDragEnabled(false);
-                getActivity().supportInvalidateOptionsMenu();
-                return true;
-            case R.id.action_enable_drag:
-                mDragListView.setDragEnabled(true);
-                getActivity().supportInvalidateOptionsMenu();
-                return true;
-            case R.id.action_list:
-                setupListRecyclerView();
-                return true;
-            case R.id.action_grid_vertical:
-                setupGridVerticalRecyclerView();
-                return true;
-            case R.id.action_grid_horizontal:
-                setupGridHorizontalRecyclerView();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     private void setupListRecyclerView() {
         mDragListView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -207,22 +173,7 @@ public class Recipes extends Fragment {
         mDragListView.setCustomDragItem(new MyDragItem(getContext(), R.layout.list_item));
     }
 
-    private void setupGridVerticalRecyclerView() {
-        mDragListView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        ItemAdapter listAdapter = new ItemAdapter(mItemArray, R.layout.grid_item, R.id.item_layout, true);
-        mDragListView.setAdapter(listAdapter, true);
-        mDragListView.setCanDragHorizontally(true);
-        mDragListView.setCustomDragItem(null);
 
-    }
-
-    private void setupGridHorizontalRecyclerView() {
-        mDragListView.setLayoutManager(new GridLayoutManager(getContext(), 4, LinearLayoutManager.HORIZONTAL, false));
-        ItemAdapter listAdapter = new ItemAdapter(mItemArray, R.layout.grid_item, R.id.item_layout, true);
-        mDragListView.setAdapter(listAdapter, true);
-        mDragListView.setCanDragHorizontally(true);
-        mDragListView.setCustomDragItem(null);
-    }
 
     private static class MyDragItem extends DragItem {
 
@@ -237,13 +188,13 @@ public class Recipes extends Fragment {
             dragView.findViewById(R.id.item_layout).setBackgroundColor(dragView.getResources().getColor(R.color.list_item_background));
         }
     }
-    class ItemAdapter extends DragItemAdapter<Pair<Long, RecipeName>, ItemAdapter.ViewHolder> {
+    class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHolder> {
 
         private int mLayoutId;
         private int mGrabHandleId;
         private boolean mDragOnLongPress;
 
-        ItemAdapter(ArrayList<Pair<Long, RecipeName>> list, int layoutId, int grabHandleId, boolean dragOnLongPress) {
+        ItemAdapter(ArrayList<Pair<Long, String>> list, int layoutId, int grabHandleId, boolean dragOnLongPress) {
             mLayoutId = layoutId;
             mGrabHandleId = grabHandleId;
             mDragOnLongPress = dragOnLongPress;
@@ -260,7 +211,7 @@ public class Recipes extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             super.onBindViewHolder(holder, position);
-            String text = mItemList.get(position).second.getrName();
+            String text = mItemList.get(position).second;
             holder.mText.setText(text);
             holder.itemView.setTag(mItemList.get(position));
         }
@@ -282,6 +233,7 @@ public class Recipes extends Fragment {
             public void onItemClicked(View view) {
 
 
+
             }
 
             @Override
@@ -289,10 +241,7 @@ public class Recipes extends Fragment {
                 Toast.makeText(view.getContext(), "Item long clicked", Toast.LENGTH_SHORT).show();
                 return true;
             }
-            private void showFragment(Fragment fragment) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, fragment, "fragment").commit();
-            }
+
         }
     }
 }
