@@ -28,9 +28,6 @@ public class TabActivity extends AppCompatActivity {
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
-        ab.setIcon(R.drawable.ducky);
-
-
 
         createTabs();
         createChart();
