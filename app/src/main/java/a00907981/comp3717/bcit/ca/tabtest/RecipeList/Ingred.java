@@ -29,12 +29,11 @@ import com.woxthebox.draglistview.swipe.ListSwipeItem;
 
 import java.util.ArrayList;
 
-import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Ingredient;
 import a00907981.comp3717.bcit.ca.tabtest.R;
 
 public class Ingred extends Fragment {
 
-    private ArrayList<Pair<Long, Ingredient>> mItemArray;
+    private ArrayList<Pair<Long, String>> mItemArray;
     private DragListView mDragListView;
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
@@ -151,7 +150,7 @@ public class Ingred extends Fragment {
                     FragmentManager fm = getActivity().getSupportFragmentManager();
 
 
-                    IngredCreator rNameCreate = IngredCreator.newInstance(mItemArray.get(pos).second.getIngredient_name());
+                    IngredCreator rNameCreate = IngredCreator.newInstance(mItemArray.get(pos).second);
                     rNameCreate.show(fm,"ingreddialog");
 
                 }
@@ -198,13 +197,13 @@ public class Ingred extends Fragment {
             dragView.findViewById(R.id.item_layout).setBackgroundColor(dragView.getResources().getColor(R.color.list_item_background));
         }
     }
-    class ItemAdapter extends DragItemAdapter<Pair<Long, Ingredient>, ItemAdapter.ViewHolder> {
+    class ItemAdapter extends DragItemAdapter<Pair<Long, String>, ItemAdapter.ViewHolder> {
 
         private int mLayoutId;
         private int mGrabHandleId;
         private boolean mDragOnLongPress;
 
-        ItemAdapter(ArrayList<Pair<Long, Ingredient>> list, int layoutId, int grabHandleId, boolean dragOnLongPress) {
+        ItemAdapter(ArrayList<Pair<Long, String>> list, int layoutId, int grabHandleId, boolean dragOnLongPress) {
             mLayoutId = layoutId;
             mGrabHandleId = grabHandleId;
             mDragOnLongPress = dragOnLongPress;
@@ -221,7 +220,7 @@ public class Ingred extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             super.onBindViewHolder(holder, position);
-            String text = mItemList.get(position).second.getIngredient_name();
+            String text = mItemList.get(position).second;
             holder.mText.setText(text);
             holder.itemView.setTag(mItemList.get(position));
         }
