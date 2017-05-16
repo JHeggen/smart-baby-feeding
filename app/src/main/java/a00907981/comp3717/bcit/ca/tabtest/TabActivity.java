@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,17 +18,30 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.greenrobot.greendao.query.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
+import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
+import a00907981.comp3717.bcit.ca.tabtest.Database.tables.History;
+import a00907981.comp3717.bcit.ca.tabtest.Database.tables.HistoryDao;
+import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Ingredient;
 import a00907981.comp3717.bcit.ca.tabtest.RecipeList.Recipes;
 
 public class TabActivity extends AppCompatActivity {
+
+    private DaoSession daoSession;
+    private HistoryDao historyDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
+
+        daoSession = ((App) getApplication()).getDaoSession();
+        historyDao = daoSession.getHistoryDao();
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
@@ -58,6 +72,14 @@ public class TabActivity extends AppCompatActivity {
 
     public void createChart(){
         PieChart pchart = (PieChart)findViewById(R.id.pchart);
+
+        /*
+        Query<History> historyQuery = historyDao.queryBuilder().build();
+
+        for(History h : historyQuery.list()){
+            Log.d("myTag" , h.getDate());
+        }
+        */
 
         List<PieEntry> entries = new ArrayList<>();
 
