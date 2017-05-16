@@ -24,8 +24,15 @@ import com.woxthebox.draglistview.DragListView;
 import com.woxthebox.draglistview.swipe.ListSwipeHelper;
 import com.woxthebox.draglistview.swipe.ListSwipeItem;
 
-import java.util.ArrayList;
+import org.greenrobot.greendao.query.DeleteQuery;
+import org.greenrobot.greendao.query.Query;
+import org.greenrobot.greendao.query.QueryBuilder;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
+import a00907981.comp3717.bcit.ca.tabtest.Database.tables.*;
 import a00907981.comp3717.bcit.ca.tabtest.R;
 
 /**
@@ -38,6 +45,9 @@ public class Recipes extends Fragment {
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
 
+    private RecipeDao recipeDao;
+
+
     public static Recipes newInstance() {
         return new Recipes();
     }
@@ -46,6 +56,20 @@ public class Recipes extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+    }
+
+    public void queryDB(){
+        mItemArray = new ArrayList<>();
+
+        DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
+        recipeDao = daoSession.getRecipeDao();
+
+        Query<Recipe> recipeQuery = recipeDao.queryBuilder().orderAsc(RecipeDao.Properties.Recipe_name).build();
+        long i = 0;
+        for(Recipe recipe : recipeQuery.list()){
+            mItemArray.add(new Pair<Long, String>(i++, recipe.getRecipe_name()));
+        }
     }
 
 
@@ -57,7 +81,14 @@ public class Recipes extends Fragment {
         mRefreshLayout = (MySwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
         mDragListView = (DragListView) view.findViewById(R.id.drag_list_view);
         mDragListView.getRecyclerView().setVerticalScrollBarEnabled(true);
+
+
+        queryDB();
+
         Button button = (Button) view.findViewById(R.id.add_button);
+
+
+
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -71,16 +102,10 @@ public class Recipes extends Fragment {
 
                 RecipeNameCreator rNameCreate = new RecipeNameCreator();
                 rNameCreate.show(fm,"Dialog");
-                mItemArray = new ArrayList<>();
-                /**
-                 * Quarry into the Recipe and gathe all the names to input into the
-                 * array list using mIemArray.add(new Pair<>((long) i, Recipename from quarry));
-                 * using a for loop to populate
-                 */
+
+                queryDB();
+
                 setupListRecyclerView();
-
-
-
             }
         });
 
@@ -110,6 +135,7 @@ public class Recipes extends Fragment {
         }
         */
 
+
         mRefreshLayout.setScrollingView(mDragListView.getRecyclerView());
         mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.app_color));
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -134,7 +160,6 @@ public class Recipes extends Fragment {
             public void onItemSwipeEnded(ListSwipeItem item, ListSwipeItem.SwipeDirection swipedDirection) {
                 mRefreshLayout.setEnabled(true);
 
-                // Swipe to delete on left
                 if (swipedDirection == ListSwipeItem.SwipeDirection.LEFT) {
 
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
@@ -144,10 +169,16 @@ public class Recipes extends Fragment {
                     transaction.replace(R.id.container, Ingred.newInstance(mItemArray.get(pos).second), "fragment").commit();
 
                 }
+
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
+
+                    DeleteQuery<Recipe> deleteQuery = recipeDao.queryBuilder().where(RecipeDao.Properties.Recipe_name.eq(mItemArray.get(pos).second)).buildDelete();
+                    deleteQuery.executeDeleteWithoutDetachingEntities();
+
                     mDragListView.getAdapter().removeItem(pos);
+
                 }
 
             }

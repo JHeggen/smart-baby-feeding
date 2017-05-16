@@ -4,34 +4,38 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.query.Query;
 
 import java.util.Scanner;
 
+import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoMaster;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Ingredient;
+import a00907981.comp3717.bcit.ca.tabtest.Database.tables.IngredientDao;
 
 public class LaunchActivity extends AppCompatActivity {
+
+    private IngredientDao ingredientDao;
+    private DaoSession daoSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-        ActionBar ab = getSupportActionBar();
-        ab.setIcon(R.drawable.ducky);
+        daoSession = ((App) getApplication()).getDaoSession();
+        ingredientDao = daoSession.getIngredientDao();
 
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "sbf-db");
-        Database db = helper.getWritableDb();
-        DaoSession daoSession = new DaoMaster(db).newSession();
-        //DaoSession daoSession = ((App) getApplication()).getDaoSession();
         populateDB(daoSession);
+
     }
 
     @Override
@@ -114,6 +118,14 @@ public class LaunchActivity extends AppCompatActivity {
                         tempMosm_kg);
         }
 
+        Query<Ingredient> ingredientQuery = ingredientDao.queryBuilder().build();
+
+        Log.d("myTag", "Query before");
+        for(Ingredient test : ingredientQuery.list()){
+            Log.d("myTag" , test.getIngredient_name());
+        }
+        Log.d("myTag", "Query after");
+
     }
 
     public void insertIngre(String name,
@@ -153,6 +165,8 @@ public class LaunchActivity extends AppCompatActivity {
         ingre.setFolic_acid_ug(folic_acid);
         ingre.setMosm_l(mosm_l);
         ingre.setMosm_kg(mosm_kg);
+
+        ingredientDao.insert(ingre);
 
     }
 }

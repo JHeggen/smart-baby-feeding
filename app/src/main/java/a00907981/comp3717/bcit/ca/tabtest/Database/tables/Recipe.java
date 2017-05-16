@@ -9,7 +9,7 @@ import org.greenrobot.greendao.annotation.Id;
  */
 
 @Entity
-class Recipe {
+public class Recipe {
     @Id
     private Long recipe_id;
 

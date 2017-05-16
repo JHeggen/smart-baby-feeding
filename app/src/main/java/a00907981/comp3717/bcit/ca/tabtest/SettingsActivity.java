@@ -12,7 +12,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true); 
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
