@@ -102,7 +102,7 @@ public class Recipes extends Fragment {
 
                 RecipeNameCreator rNameCreate = new RecipeNameCreator();
                 rNameCreate.show(fm,"Dialog");
-
+                rNameCreate.getFragmentManager().executePendingTransactions();
                 queryDB();
 
                 setupListRecyclerView();
@@ -141,6 +141,9 @@ public class Recipes extends Fragment {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                queryDB();
+
+                setupListRecyclerView();
                 mRefreshLayout.postDelayed(new Runnable() {
                     @Override
                     public void run() {
