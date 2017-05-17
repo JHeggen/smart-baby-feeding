@@ -159,7 +159,7 @@ public class TabActivity extends AppCompatActivity {
         for(Recipe item : recipeQuery.list()){
             spinnerList.add(item.getRecipe_name());
         }
-
+ 
         ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, spinnerList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
