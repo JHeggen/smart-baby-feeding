@@ -10,7 +10,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TabHost;
+import android.widget.Adapter;
+import android.widget.ListAdapter;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -28,12 +33,15 @@ import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.History;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.HistoryDao;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Ingredient;
+import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Recipe;
+import a00907981.comp3717.bcit.ca.tabtest.Database.tables.RecipeDao;
 import a00907981.comp3717.bcit.ca.tabtest.RecipeList.Recipes;
 
 public class TabActivity extends AppCompatActivity {
 
     private DaoSession daoSession;
     private HistoryDao historyDao;
+    private RecipeDao  recipeDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,7 @@ public class TabActivity extends AppCompatActivity {
 
         daoSession = ((App) getApplication()).getDaoSession();
         historyDao = daoSession.getHistoryDao();
+        recipeDao = daoSession.getRecipeDao();
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
@@ -49,7 +58,7 @@ public class TabActivity extends AppCompatActivity {
         createTabs();
         createChart();
         showFragment(Recipes.newInstance());
-
+        refreshSpinner();
     }
 
     @Override
@@ -138,6 +147,24 @@ public class TabActivity extends AppCompatActivity {
                 host.setCurrentTab(0);
                 break;
         }
+    }
+
+    public void refreshSpinner() {
+        Spinner spinner = (Spinner)findViewById(R.id.spinner);
+
+        Query<Recipe> recipeQuery = recipeDao.queryBuilder().build();
+
+        List<String> spinnerList = new ArrayList<>();
+
+        for(Recipe item : recipeQuery.list()){
+            spinnerList.add(item.getRecipe_name());
+        }
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, spinnerList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(arrayAdapter);
+
     }
 
     public int getFocus(){
