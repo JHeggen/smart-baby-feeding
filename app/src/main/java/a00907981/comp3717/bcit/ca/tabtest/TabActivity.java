@@ -10,12 +10,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TabHost;
-import android.widget.Adapter;
-import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -43,6 +43,16 @@ public class TabActivity extends AppCompatActivity {
     private HistoryDao historyDao;
     private RecipeDao  recipeDao;
 
+    private EditText   btWeightVal;
+    private TextView   netWeightConsumed;
+
+    private double    startWeight;
+    private double    endWeight;
+    private double    netWeight;
+
+    private boolean startNotNeg;
+    private boolean endNotNeg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +61,10 @@ public class TabActivity extends AppCompatActivity {
         daoSession = ((App) getApplication()).getDaoSession();
         historyDao = daoSession.getHistoryDao();
         recipeDao = daoSession.getRecipeDao();
+
+        netWeightConsumed = (TextView) findViewById(R.id.textView2);
+        btWeightVal = (EditText) findViewById(R.id.editText);
+        btWeightVal.setHint("Enter Weight");
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
@@ -165,6 +179,44 @@ public class TabActivity extends AppCompatActivity {
 
         spinner.setAdapter(arrayAdapter);
 
+    }
+
+    public void setStartWeight(View v) {
+
+        startWeight = Double.parseDouble(btWeightVal.getText().toString());
+        btWeightVal.setText("");
+
+        startNotNeg = (startWeight < 0) ? false : true;
+
+        if(!startNotNeg){
+            btWeightVal.setError("Negative Number");
+        }
+    }
+
+    public void setEndWeight(View v) {
+        endWeight = Double.parseDouble(btWeightVal.getText().toString());
+        btWeightVal.setText("");
+
+        endNotNeg = (endWeight < 0) ? false : true;
+
+        if(!endNotNeg){
+            btWeightVal.setError("Negative Number");
+        }
+
+        getNetWeight();
+    }
+
+    public void getNetWeight() {
+        netWeight = startWeight - endWeight;
+        if (!startNotNeg) {
+            btWeightVal.setError("Negative starting value");
+        } else if (!endNotNeg) {
+            btWeightVal.setError("Negative ending value");
+        } else if(netWeight < 0) {
+            btWeightVal.setError("Negative weight value");
+        }else {
+            netWeightConsumed.setText("" + netWeight);
+        }
     }
 
     public int getFocus(){

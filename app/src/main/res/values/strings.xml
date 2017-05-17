@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TabTest</string>
+    <string name="app_name">Smart Baby Feeding</string>
     <string name="action_lists">Test lists</string>
     <string name="action_board">Test board </string>
     <string name="action_disable_drag">Disable drag</string>

@@ -14,49 +14,105 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:stretchColumns="*"
         android:layout_alignParentTop="true"
-        android:stretchColumns="*">
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical">
 
         <TableRow
             android:layout_width="0dp"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <ImageView
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/bottle"
                 android:id="@+id/imageView2"
-                android:layout_alignParentTop="true"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_alignParentStart="true"
-                android:layout_width="75dp"
-                android:onClick="feedClick"/>
+                android:layout_alignParentTop="true"
+                android:onClick="feedClick"
+                app:srcCompat="@drawable/feedingbottle" />
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/book"
                 android:id="@+id/imageView3"
-                android:onClick="recipeClick"/>
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:onClick="recipeClick"
+                app:srcCompat="@drawable/babyfeeding" />
 
         </TableRow>
 
         <TableRow
-            android:layout_width="0dp"
-            android:layout_height="match_parent" >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageView
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/graph"
-                android:id="@+id/imageView5"
-                android:onClick="historyClick"/>
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:text="Feed"
+                android:textAlignment="center" />
 
-            <ImageView
-                android:layout_width="100dp"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/clock"
-                android:id="@+id/imageView4"
-                android:onClick="clockClick"/>
+                android:layout_alignTop="@+id/textView"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/textView"
+                android:elevation="11dp"
+                android:text="Recipes"
+                android:textAlignment="center" />
         </TableRow>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:onClick="historyClick"
+                app:srcCompat="@drawable/cake" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:onClick="clockClick"
+                app:srcCompat="@drawable/babymonitor" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView3"
+                android:layout_alignEnd="@+id/textView2"
+                android:layout_marginTop="10dp"
+                android:text="History"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView3"
+                android:layout_alignEnd="@+id/textView2"
+                android:layout_marginTop="10dp"
+                android:text="Notifications"
+                android:textAlignment="center" />
+
+            </TableRow>
     </TableLayout>
 
 </RelativeLayout>
