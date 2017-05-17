@@ -70,6 +70,8 @@ public class Recipes extends Fragment {
         for(Recipe recipe : recipeQuery.list()){
             mItemArray.add(new Pair<Long, String>(i++, recipe.getRecipe_name()));
         }
+
+        Toast.makeText(getContext(), "IN QUERYDB", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -199,7 +201,7 @@ public class Recipes extends Fragment {
 
 
 
-    private void setupListRecyclerView() {
+    public void setupListRecyclerView() {
         mDragListView.setLayoutManager(new LinearLayoutManager(getContext()));
         ItemAdapter listAdapter = new ItemAdapter(mItemArray, R.layout.list_item, R.id.image, false);
         mDragListView.setAdapter(listAdapter, true);

@@ -4,8 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.util.Pair;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,10 +34,14 @@ public class RecipeNameCreator extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.recipe_name_frag, new RelativeLayout(getActivity()));
+
         name = (EditText) view.findViewById(R.id.recipe_name_edit);
+
         builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
+
         Button dismiss = (Button) view.findViewById(R.id.recipe_submit);
+
         dismiss.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -62,6 +65,12 @@ public class RecipeNameCreator extends DialogFragment{
                         Recipe recipe = new Recipe();
                         recipe.setRecipe_name(name.getText().toString());
                         recipeDao.insert(recipe);
+
+                        FragmentManager fm = getFragmentManager();
+                        Recipes recipes = (Recipes) fm.findFragmentByTag("fragment");
+                        recipes.queryDB();
+                        recipes.setupListRecyclerView();
+
                         dismiss();
                     } else {
                         name.setError("Recipe Name is Already in Use");
