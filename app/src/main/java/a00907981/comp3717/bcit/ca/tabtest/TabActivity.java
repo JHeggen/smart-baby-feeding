@@ -198,6 +198,7 @@ public class TabActivity extends AppCompatActivity {
         btWeightVal.setText("");
 
         endNotNeg = (endWeight < 0) ? false : true;
+
         if(!endNotNeg){
             btWeightVal.setError("Negative Number");
         }
