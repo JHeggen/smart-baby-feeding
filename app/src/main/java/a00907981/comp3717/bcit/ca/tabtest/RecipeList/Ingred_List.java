@@ -57,6 +57,7 @@ public class Ingred_List extends Fragment {
         Ingred_List temp = new Ingred_List();
         temp.setRecipePK(recPK);
         temp.setIngredPos(ingPOS);
+        //ingPOS = ingPos + something;
         return temp;
     }
 
@@ -83,7 +84,7 @@ public class Ingred_List extends Fragment {
         DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
         ingredientDao = daoSession.getIngredientDao();
 
-        Query<Ingredient> ingredQuery = ingredientDao.queryBuilder().orderAsc(IngredientDao.Properties.Ingredient_name).build();
+        Query<Ingredient> ingredQuery = ingredientDao.queryBuilder().build();
         long i = 0;
         for(Ingredient recipe : ingredQuery.list()){
             mItemArray.add(new Pair<Long, String>(i++, recipe.getIngredient_name()));
@@ -216,7 +217,7 @@ public class Ingred_List extends Fragment {
     }
 
 
-    private void setupListRecyclerView() {
+    public void setupListRecyclerView() {
         mDragListView.setLayoutManager(new LinearLayoutManager(getContext()));
         ItemAdapter listAdapter = new ItemAdapter(mItemArray, R.layout.list_item, R.id.image, false);
         mDragListView.setAdapter(listAdapter, true);
@@ -281,7 +282,7 @@ public class Ingred_List extends Fragment {
 
             @Override
             public void onItemClicked(View view) {
-                long hold = super.getAdapterPosition();
+                long hold = mDragListView.getAdapter().getPositionForItem(this);
                 long holdIngPK = getIngredID(mItemList.get((int)hold).second);
 
 
@@ -293,9 +294,6 @@ public class Ingred_List extends Fragment {
                 recipeIngDao.insert(ingred);
 
                 FragmentManager fm = getFragmentManager();
-                Ingred ingre = (Ingred) fm.findFragmentByTag("fragment");
-                ingre.queryDB();
-                ingre.setupListRecyclerView();
                 fm.popBackStackImmediate();
 
             }

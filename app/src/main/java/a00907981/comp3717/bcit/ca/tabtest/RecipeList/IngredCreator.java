@@ -16,7 +16,6 @@ import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Ingredient;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.IngredientDao;
-import a00907981.comp3717.bcit.ca.tabtest.Database.tables.RecipeDao;
 import a00907981.comp3717.bcit.ca.tabtest.R;
 
 /**
@@ -63,7 +62,7 @@ public class IngredCreator extends DialogFragment {
                     DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
                     ingDao = daoSession.getIngredientDao();
 
-                    Query<Ingredient> ingredQuery = ingDao.queryBuilder().where(RecipeDao.Properties.Recipe_name.eq(name.getText().toString())).build();
+                    Query<Ingredient> ingredQuery = ingDao.queryBuilder().where(IngredientDao.Properties.Ingredient_name.eq(name.getText().toString())).build();
 
                     if(ingredQuery.list().isEmpty()){
                         Ingredient ingred = new Ingredient();
@@ -72,7 +71,7 @@ public class IngredCreator extends DialogFragment {
                         ingDao.insert(ingred);
 
                         FragmentManager fm = getFragmentManager();
-                        Recipes recipes = (Recipes) fm.findFragmentByTag("fragment");
+                        Ingred_List recipes = (Ingred_List) fm.findFragmentByTag("fragment");
                         recipes.queryDB();
                         recipes.setupListRecyclerView();
 
