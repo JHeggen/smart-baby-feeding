@@ -1,15 +1,11 @@
 package a00907981.comp3717.bcit.ca.tabtest;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.os.AsyncTaskCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,10 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -177,7 +171,27 @@ public class TabActivity extends AppCompatActivity {
         host.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-                refreshSpinner();
+
+
+                switch(tabId) {
+                    case "Tab1":
+                        refreshSpinner();
+                        //createTimer();
+                        break;
+                    case "Tab2":
+                        //killTimer();
+                        break;
+                    case "Tab3":
+                        //killTimer();
+                        break;
+                    case "Tab4":
+                        //killTimer();
+                        break;
+                    default:
+                        //killTimer();
+                        break;
+                }
+
             }
         });
     }
@@ -206,7 +220,9 @@ public class TabActivity extends AppCompatActivity {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                //code here
+                if(btWeightVal > 0) {
+                    editWeightVal.setText("" + btWeightVal);
+                }
             }
         }, 0, freq);
     }
