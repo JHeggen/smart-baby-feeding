@@ -124,6 +124,7 @@ public class Ingred extends Fragment {
         }
         return true;
     }
+
     public void onBackPressed() {
         // your code.
         if (getFragmentManager().getBackStackEntryCount() > 0){
@@ -177,12 +178,7 @@ public class Ingred extends Fragment {
         ingredPos = 0;
         setRecipePK();
         queryDB();
-        /**
-        mItemArray = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
-            mItemArray.add(new Pair<>((long) i, "Item " + i));
-        }
-         */
+
         mRefreshLayout.setScrollingView(mDragListView.getRecyclerView());
         mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.app_color));
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

@@ -76,6 +76,7 @@ public class Ingred_List extends Fragment {
         Ingredient ingPosGet = ingredQuery.unique();
         return ingPosGet.getIngre_id();
     }
+
     public void queryDB(){
 
         mItemArray = new ArrayList<>();
@@ -84,12 +85,13 @@ public class Ingred_List extends Fragment {
         ingredientDao = daoSession.getIngredientDao();
 
         Query<Ingredient> ingredQuery = ingredientDao.queryBuilder().orderAsc(IngredientDao.Properties.Ingredient_name).build();
+
         long i = 0;
+
         for(Ingredient recipe : ingredQuery.list()){
             mItemArray.add(new Pair<Long, String>(i++, recipe.getIngredient_name()));
         }
 
-        Toast.makeText(getContext(), "IN QUERYDB", Toast.LENGTH_SHORT).show();
     }
 
     public void setRecipePK(long rpk) {
