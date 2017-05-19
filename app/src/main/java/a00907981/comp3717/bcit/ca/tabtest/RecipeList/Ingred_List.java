@@ -1,15 +1,10 @@
 package a00907981.comp3717.bcit.ca.tabtest.RecipeList;
 
-/**
- * Created by Getry on 5/11/2017.
- */
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -28,8 +23,8 @@ import com.woxthebox.draglistview.DragListView;
 import com.woxthebox.draglistview.swipe.ListSwipeHelper;
 import com.woxthebox.draglistview.swipe.ListSwipeItem;
 
+import org.greenrobot.greendao.query.DeleteQuery;
 import org.greenrobot.greendao.query.Query;
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 
@@ -37,29 +32,32 @@ import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Ingredient;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.IngredientDao;
-import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Recipe;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.RecipeDao;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Recipe_Ingredient;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.Recipe_IngredientDao;
 import a00907981.comp3717.bcit.ca.tabtest.R;
 
-public class Ingred extends Fragment {
+/**
+ * Created by Getry on 5/18/2017.
+ */
 
+public class Ingred_List extends Fragment {
     private ArrayList<Pair<Long, String>> mItemArray;
     private DragListView mDragListView;
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
-    private String recipeName;
     private long recipePK;
-    private long ingredPos;
+    private long ingPos;
 
     private RecipeDao recipeDao;
     private Recipe_IngredientDao recipeIngDao;
     private IngredientDao ingredientDao;
 
-    public static Ingred newInstance(String name) {
-        Ingred temp = new Ingred();
-        temp.setRecipeName(name);
+    public static Ingred_List newInstance(long recPK, long ingPOS) {
+        Ingred_List temp = new Ingred_List();
+        temp.setRecipePK(recPK);
+        temp.setIngredPos(ingPOS);
+        //ingPOS = ingPos + something;
         return temp;
     }
 
@@ -68,53 +66,37 @@ public class Ingred extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    public void setRecipePK() {
+
+
+
+    public long getIngredID(String ingName) {
         DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
-        recipeDao = daoSession.getRecipeDao();
+        ingredientDao = daoSession.getIngredientDao();
 
-        Query<Recipe> recipeQuery = recipeDao.queryBuilder().where(RecipeDao.Properties.Recipe_name.eq(recipeName.toString())).build();
-
-        Recipe recipe = recipeQuery.unique();
-        recipePK =recipe.getRecipe_id();
-        Toast.makeText(getContext(), "IN RecipeQuesry pk is " + recipePK, Toast.LENGTH_SHORT).show();
+        Query<Ingredient> ingredQuery = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingredient_name.eq(ingName)).build();
+        Ingredient ingPosGet = ingredQuery.unique();
+        return ingPosGet.getIngre_id();
     }
-
-    public long getIngredPos(long ingredID) {
-        DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
-        recipeIngDao = daoSession.getRecipe_IngredientDao();
-        QueryBuilder<Recipe_Ingredient> recipeIngQuery = recipeIngDao.queryBuilder();
-        recipeIngQuery.where(Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK),Recipe_IngredientDao.Properties.Ingre_id_FK.eq(ingredID));
-        Recipe_Ingredient recIng = recipeIngQuery.unique();
-        return recIng.getOrder();
-
-
-
-    }
-
     public void queryDB(){
-
 
         mItemArray = new ArrayList<>();
 
         DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
         ingredientDao = daoSession.getIngredientDao();
-        QueryBuilder<Ingredient> ingredientQuery = ingredientDao.queryBuilder();
-        ingredientQuery.join(Recipe_Ingredient.class, Recipe_IngredientDao.Properties.Recipe_id_FK).where(Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK));
 
-
-
-
+        Query<Ingredient> ingredQuery = ingredientDao.queryBuilder().build();
         long i = 0;
-        for(Ingredient ingred : ingredientQuery.list()){
-            mItemArray.add(new Pair<Long, String>(i++, ingred.getIngredient_name()));
+        for(Ingredient recipe : ingredQuery.list()){
+            mItemArray.add(new Pair<Long, String>(i++, recipe.getIngredient_name()));
         }
 
         Toast.makeText(getContext(), "IN QUERYDB", Toast.LENGTH_SHORT).show();
     }
 
-    public void setRecipeName(String name) {
-        recipeName = name;
+    public void setRecipePK(long rpk) {
+        recipePK = rpk;
     }
+    public void setIngredPos(long ipos) {ingPos = ipos;}
 
     public boolean onSupportNavigateUp(){
 
@@ -124,7 +106,6 @@ public class Ingred extends Fragment {
         }
         return true;
     }
-
     public void onBackPressed() {
         // your code.
         if (getFragmentManager().getBackStackEntryCount() > 0){
@@ -143,11 +124,13 @@ public class Ingred extends Fragment {
             @Override
             public void onClick(View v)
             {
-                // do something
 
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.addToBackStack(null);
-                transaction.replace(R.id.container, Ingred_List.newInstance(recipePK, ingredPos), "fragment").commit();
+                // do something
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+
+
+                IngredCreator rNameCreate = new IngredCreator();
+                rNameCreate.show(fm,"ingreddialog");
 
 
 
@@ -175,10 +158,13 @@ public class Ingred extends Fragment {
                 }
             }
         });
-        ingredPos = 0;
-        setRecipePK();
         queryDB();
-
+        /**
+         mItemArray = new ArrayList<>();
+         for (int i = 0; i < 40; i++) {
+         mItemArray.add(new Pair<>((long) i, "Item " + i));
+         }
+         */
         mRefreshLayout.setScrollingView(mDragListView.getRecyclerView());
         mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.app_color));
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -204,14 +190,7 @@ public class Ingred extends Fragment {
                 mRefreshLayout.setEnabled(true);
 
                 if (swipedDirection == ListSwipeItem.SwipeDirection.LEFT) {
-
-                    Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
-                    int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
-                    FragmentManager fm = getActivity().getSupportFragmentManager();
-
-
-                    IngredCreator rNameCreate = IngredCreator.newInstance(mItemArray.get(pos).second);
-                    rNameCreate.show(fm,"ingreddialog");
+                    Toast.makeText(getContext(), "CANNOT EDIT", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -219,7 +198,10 @@ public class Ingred extends Fragment {
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
+                    DeleteQuery<Ingredient> deleteQuery = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingredient_name.eq(mItemArray.get(pos).second)).buildDelete();
+                    deleteQuery.executeDeleteWithoutDetachingEntities();
                     mDragListView.getAdapter().removeItem(pos);
+
                 }
             }
         });
@@ -300,7 +282,20 @@ public class Ingred extends Fragment {
 
             @Override
             public void onItemClicked(View view) {
-                Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
+                long hold = mDragListView.getAdapter().getPositionForItem(this);
+                long holdIngPK = getIngredID(mItemList.get((int)hold).second);
+
+
+                DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
+                recipeIngDao = daoSession.getRecipe_IngredientDao();
+                Recipe_Ingredient ingred = new Recipe_Ingredient();
+                ingred.setIngre_id_FK(holdIngPK);
+                ingred.setRecipe_id_FK(recipePK);
+                recipeIngDao.insert(ingred);
+
+                FragmentManager fm = getFragmentManager();
+                fm.popBackStackImmediate();
+
             }
 
             @Override
@@ -312,3 +307,4 @@ public class Ingred extends Fragment {
     }
 
 }
+
