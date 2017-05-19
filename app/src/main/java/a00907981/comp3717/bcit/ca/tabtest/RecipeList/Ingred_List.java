@@ -10,6 +10,7 @@ import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -282,16 +283,24 @@ public class Ingred_List extends Fragment {
 
             @Override
             public void onItemClicked(View view) {
-                long hold = mDragListView.getAdapter().getPositionForItem(this);
-                long holdIngPK = getIngredID(mItemList.get((int)hold).second);
+                long pos  = getAdapterPosition();
+
+                Log.d("myTag", "POS:" + pos);
+
+                long ingPK = getIngredID(mItemList.get((int)pos).second);
+
+                Log.d("myTag", "ID:" + ingPK);
 
 
                 DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
                 recipeIngDao = daoSession.getRecipe_IngredientDao();
                 Recipe_Ingredient ingred = new Recipe_Ingredient();
-                ingred.setIngre_id_FK(holdIngPK);
+                ingred.setIngre_id_FK(ingPK);
                 ingred.setRecipe_id_FK(recipePK);
                 recipeIngDao.insert(ingred);
+
+                Log.d("myTag", "ingPK:" + ingred.getIngre_id_FK());
+                Log.d("myTag", "recipeFK:" + ingred.getRecipe_id_FK());
 
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStackImmediate();

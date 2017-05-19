@@ -75,11 +75,12 @@ public class Ingred extends Fragment {
         Query<Recipe> recipeQuery = recipeDao.queryBuilder().where(RecipeDao.Properties.Recipe_name.eq(recipeName.toString())).build();
 
         Recipe recipe = recipeQuery.unique();
-        recipePK =recipe.getRecipe_id();
+        recipePK = recipe.getRecipe_id();
         Toast.makeText(getContext(), "IN RecipeQuesry pk is " + recipePK, Toast.LENGTH_SHORT).show();
     }
 
     public long getIngredPos(long ingredID) {
+
         DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
         recipeIngDao = daoSession.getRecipe_IngredientDao();
         QueryBuilder<Recipe_Ingredient> recipeIngQuery = recipeIngDao.queryBuilder();
@@ -98,18 +99,17 @@ public class Ingred extends Fragment {
 
         DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
         ingredientDao = daoSession.getIngredientDao();
+        Recipe_IngredientDao recipe_ingredient = daoSession.getRecipe_IngredientDao();
+
         QueryBuilder<Ingredient> ingredientQuery = ingredientDao.queryBuilder();
-        ingredientQuery.join(Recipe_Ingredient.class, Recipe_IngredientDao.Properties.Recipe_id_FK).where(Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK));
-
-
-
+        ingredientQuery.join(Recipe_Ingredient.class, Recipe_IngredientDao.Properties.Ingre_id_FK).
+                where(Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK));
 
         long i = 0;
-        for(Ingredient ingred : ingredientQuery.list()){
-            mItemArray.add(new Pair<Long, String>(i++, ingred.getIngredient_name()));
-        }
 
-        Toast.makeText(getContext(), "IN QUERYDB", Toast.LENGTH_SHORT).show();
+        for(Ingredient ingredient : ingredientQuery.list()){
+            mItemArray.add(new Pair<Long, String>(i ++, ingredient.getIngredient_name()));
+        }
     }
 
     public void setRecipeName(String name) {
