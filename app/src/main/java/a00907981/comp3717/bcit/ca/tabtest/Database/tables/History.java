@@ -19,41 +19,41 @@ public class History {
     @ToOne(joinProperty = "recipe_ID_FK")
     private Recipe recipe;
 
-    private String date;
+    private double date;
 
-    private String time;
+    private double time;
 
-    private String net_energy;
+    private double net_energy;
 
-    private String net_prot;
+    private double net_prot;
 
-    private String net_cho;
+    private double net_cho;
 
-    private String net_fat;
+    private double net_fat;
 
-    private String net_na;
+    private double net_na;
 
-    private String net_k;
+    private double net_k;
 
-    private String net_cl;
+    private double net_cl;
 
-    private String net_ca;
+    private double net_ca;
 
-    private String net_po;
+    private double net_po;
 
-    private String net_mg;
+    private double net_mg;
 
-    private String net_iron;
+    private double net_iron;
 
-    private String net_vit_a;
+    private double net_vit_a;
 
-    private String net_vit_d;
+    private double net_vit_d;
 
-    private String net_folic_acid;
+    private double net_folic_acid;
 
-    private String net_mosm_l;
+    private double net_mosm_l;
 
-    private String net_mosm_kg;
+    private double net_mosm_kg;
 
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
@@ -63,13 +63,13 @@ public class History {
     @Generated(hash = 1462128466)
     private transient HistoryDao myDao;
 
-    @Generated(hash = 1956150650)
-    public History(Long history_id, Long recipe_ID_FK, String date, String time,
-            String net_energy, String net_prot, String net_cho, String net_fat,
-            String net_na, String net_k, String net_cl, String net_ca,
-            String net_po, String net_mg, String net_iron, String net_vit_a,
-            String net_vit_d, String net_folic_acid, String net_mosm_l,
-            String net_mosm_kg) {
+    @Generated(hash = 523456461)
+    public History(Long history_id, Long recipe_ID_FK, double date, double time,
+            double net_energy, double net_prot, double net_cho, double net_fat,
+            double net_na, double net_k, double net_cl, double net_ca,
+            double net_po, double net_mg, double net_iron, double net_vit_a,
+            double net_vit_d, double net_folic_acid, double net_mosm_l,
+            double net_mosm_kg) {
         this.history_id = history_id;
         this.recipe_ID_FK = recipe_ID_FK;
         this.date = date;
@@ -112,147 +112,147 @@ public class History {
         this.recipe_ID_FK = recipe_ID_FK;
     }
 
-    public String getDate() {
+    public double getDate() {
         return this.date;
     }
 
-    public void setDate(String date) {
+    public void setDate(double date) {
         this.date = date;
     }
 
-    public String getTime() {
+    public double getTime() {
         return this.time;
     }
 
-    public void setTime(String time) {
+    public void setTime(double time) {
         this.time = time;
     }
 
-    public String getNet_energy() {
+    public double getNet_energy() {
         return this.net_energy;
     }
 
-    public void setNet_energy(String net_energy) {
+    public void setNet_energy(double net_energy) {
         this.net_energy = net_energy;
     }
 
-    public String getNet_prot() {
+    public double getNet_prot() {
         return this.net_prot;
     }
 
-    public void setNet_prot(String net_prot) {
+    public void setNet_prot(double net_prot) {
         this.net_prot = net_prot;
     }
 
-    public String getNet_cho() {
+    public double getNet_cho() {
         return this.net_cho;
     }
 
-    public void setNet_cho(String net_cho) {
+    public void setNet_cho(double net_cho) {
         this.net_cho = net_cho;
     }
 
-    public String getNet_fat() {
+    public double getNet_fat() {
         return this.net_fat;
     }
 
-    public void setNet_fat(String net_fat) {
+    public void setNet_fat(double net_fat) {
         this.net_fat = net_fat;
     }
 
-    public String getNet_na() {
+    public double getNet_na() {
         return this.net_na;
     }
 
-    public void setNet_na(String net_na) {
+    public void setNet_na(double net_na) {
         this.net_na = net_na;
     }
 
-    public String getNet_k() {
+    public double getNet_k() {
         return this.net_k;
     }
 
-    public void setNet_k(String net_k) {
+    public void setNet_k(double net_k) {
         this.net_k = net_k;
     }
 
-    public String getNet_cl() {
+    public double getNet_cl() {
         return this.net_cl;
     }
 
-    public void setNet_cl(String net_cl) {
+    public void setNet_cl(double net_cl) {
         this.net_cl = net_cl;
     }
 
-    public String getNet_ca() {
+    public double getNet_ca() {
         return this.net_ca;
     }
 
-    public void setNet_ca(String net_ca) {
+    public void setNet_ca(double net_ca) {
         this.net_ca = net_ca;
     }
 
-    public String getNet_po() {
+    public double getNet_po() {
         return this.net_po;
     }
 
-    public void setNet_po(String net_po) {
+    public void setNet_po(double net_po) {
         this.net_po = net_po;
     }
 
-    public String getNet_mg() {
+    public double getNet_mg() {
         return this.net_mg;
     }
 
-    public void setNet_mg(String net_mg) {
+    public void setNet_mg(double net_mg) {
         this.net_mg = net_mg;
     }
 
-    public String getNet_iron() {
+    public double getNet_iron() {
         return this.net_iron;
     }
 
-    public void setNet_iron(String net_iron) {
+    public void setNet_iron(double net_iron) {
         this.net_iron = net_iron;
     }
 
-    public String getNet_vit_a() {
+    public double getNet_vit_a() {
         return this.net_vit_a;
     }
 
-    public void setNet_vit_a(String net_vit_a) {
+    public void setNet_vit_a(double net_vit_a) {
         this.net_vit_a = net_vit_a;
     }
 
-    public String getNet_vit_d() {
+    public double getNet_vit_d() {
         return this.net_vit_d;
     }
 
-    public void setNet_vit_d(String net_vit_d) {
+    public void setNet_vit_d(double net_vit_d) {
         this.net_vit_d = net_vit_d;
     }
 
-    public String getNet_folic_acid() {
+    public double getNet_folic_acid() {
         return this.net_folic_acid;
     }
 
-    public void setNet_folic_acid(String net_folic_acid) {
+    public void setNet_folic_acid(double net_folic_acid) {
         this.net_folic_acid = net_folic_acid;
     }
 
-    public String getNet_mosm_l() {
+    public double getNet_mosm_l() {
         return this.net_mosm_l;
     }
 
-    public void setNet_mosm_l(String net_mosm_l) {
+    public void setNet_mosm_l(double net_mosm_l) {
         this.net_mosm_l = net_mosm_l;
     }
 
-    public String getNet_mosm_kg() {
+    public double getNet_mosm_kg() {
         return this.net_mosm_kg;
     }
 
-    public void setNet_mosm_kg(String net_mosm_kg) {
+    public void setNet_mosm_kg(double net_mosm_kg) {
         this.net_mosm_kg = net_mosm_kg;
     }
 

@@ -161,6 +161,13 @@ public class TabActivity extends AppCompatActivity {
                 host.setCurrentTab(0);
                 break;
         }
+
+        host.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                refreshSpinner();
+            }
+        });
     }
 
     public void refreshSpinner() {
