@@ -285,12 +285,7 @@ public class Ingred_List extends Fragment {
             public void onItemClicked(View view) {
                 long pos  = getAdapterPosition();
 
-                Log.d("myTag", "POS:" + pos);
-
                 long ingPK = getIngredID(mItemList.get((int)pos).second);
-
-                Log.d("myTag", "ID:" + ingPK);
-
 
                 DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
                 recipeIngDao = daoSession.getRecipe_IngredientDao();
@@ -298,9 +293,6 @@ public class Ingred_List extends Fragment {
                 ingred.setIngre_id_FK(ingPK);
                 ingred.setRecipe_id_FK(recipePK);
                 recipeIngDao.insert(ingred);
-
-                Log.d("myTag", "ingPK:" + ingred.getIngre_id_FK());
-                Log.d("myTag", "recipeFK:" + ingred.getRecipe_id_FK());
 
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStackImmediate();
