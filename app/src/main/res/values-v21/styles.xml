@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources><style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar" >
+        <item name="colorPrimaryDark">@color/cardview_dark_background</item>
+        <item name="colorAccent">@color/pastel5</item>
+        <item name="android:colorForeground">@color/pastel5</item>
+        <item name="android:colorBackground">@color/pastel2</item>
+        <item name="android:textColorPrimaryInverse">@color/pastel1</item>
+        <item name="android:windowBackground">@color/pastel3</item>
+    </style></resources>
