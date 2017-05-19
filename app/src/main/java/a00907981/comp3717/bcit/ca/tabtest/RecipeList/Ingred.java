@@ -104,10 +104,9 @@ public class Ingred extends Fragment {
 
 
 
-
+        long i = 0;
         for(Ingredient ingred : ingredientQuery.list()){
-            ingredPos = getIngredPos(ingred.getIngre_id());
-            mItemArray.add(new Pair<Long, String>(ingredPos, ingred.getIngredient_name()));
+            mItemArray.add(new Pair<Long, String>(i++, ingred.getIngredient_name()));
         }
 
         Toast.makeText(getContext(), "IN QUERYDB", Toast.LENGTH_SHORT).show();

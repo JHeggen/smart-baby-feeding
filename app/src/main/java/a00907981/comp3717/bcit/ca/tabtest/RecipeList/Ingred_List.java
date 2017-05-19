@@ -288,7 +288,6 @@ public class Ingred_List extends Fragment {
                 DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
                 recipeIngDao = daoSession.getRecipe_IngredientDao();
                 Recipe_Ingredient ingred = new Recipe_Ingredient();
-                ingred.setOrder(ingPos);
                 ingred.setIngre_id_FK(holdIngPK);
                 ingred.setRecipe_id_FK(recipePK);
                 recipeIngDao.insert(ingred);
