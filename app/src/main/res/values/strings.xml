@@ -8,4 +8,11 @@
     <string name="action_grid_vertical">Grid vertical (drag on long press)</string>
     <string name="action_grid_horizontal">Grid horizontal (drag on long press)</string>
 
+    <color name="pastel1">#e1f7d5</color>
+    <color name="pastel2">#ffbdbd</color>
+    <color name="pastel4">#c9c9ff</color>
+    <color name="pastel3">#ffffff</color>
+    <color name="pastel5">#f1cbff</color>
+
+
 </resources>
