@@ -48,6 +48,12 @@ public class TabActivity extends AppCompatActivity {
     private EditText   editWeightVal;
     private double     btWeightVal = -1;
 
+    private double     feTotal;
+    private double     fatTotal;
+    private double     caTotal;
+    private double     protTotal;
+    private double     enerTotal;
+
     private double     startWeight;
     private double     endWeight;
     private double     netWeight;
@@ -283,6 +289,7 @@ public class TabActivity extends AppCompatActivity {
             editWeightVal.setError("Negative weight value");
         }else {
             editWeightVal.setText("Net Weight: " + netWeight);
+            btWeightVal = netWeight;
         }
     }
 
@@ -293,22 +300,34 @@ public class TabActivity extends AppCompatActivity {
         TableRow    tableRow4 = (TableRow) findViewById(R.id.row4);
         TableRow    tableRow5 = (TableRow) findViewById(R.id.row5);
 
+        Query<Recipe> nutritionQuery = recipeDao.queryBuilder().build();
+
+        for(Recipe nutrient : nutritionQuery.list()) {
+
+            //use where to specify which recipe it is?
+            feTotal   = (btWeightVal * nutrient.getIron_total());
+            caTotal   = (btWeightVal * nutrient.getCa_total());
+            fatTotal  = (btWeightVal * nutrient.getFat_total());
+            protTotal = (btWeightVal * nutrient.getProt_total());
+            enerTotal = (btWeightVal * nutrient.getEnergy_total());
+        }
+
         TextView tv;
         // Fill out our cells
         tv = (TextView) tableRow1.findViewById(R.id.item1);
-        tv.setText("First");
+        tv.setText("Iron: " + feTotal);
 
         tv = (TextView) tableRow2.findViewById(R.id.item2);
-        tv.setText("Second");
+        tv.setText("Calcium: " + caTotal);
 
         tv = (TextView) tableRow3.findViewById(R.id.item3);
-        tv.setText("Third");
+        tv.setText("Fat: " + fatTotal);
 
         tv = (TextView) tableRow4.findViewById(R.id.item4);
-        tv.setText("Fourth");
+        tv.setText("Protein: " + protTotal);
 
         tv = (TextView) tableRow5.findViewById(R.id.item5);
-        tv.setText("Fifth");
+        tv.setText("Energy: " + enerTotal);
     }
 
     public int getFocus(){
