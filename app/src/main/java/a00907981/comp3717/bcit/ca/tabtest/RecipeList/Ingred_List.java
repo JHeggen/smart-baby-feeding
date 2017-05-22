@@ -283,6 +283,10 @@ public class Ingred_List extends Fragment {
 
             @Override
             public void onItemClicked(View view) {
+
+                Ingredient_Amount ingredient_amount = new Ingredient_Amount();
+                ingredient_amount.show(getActivity().getFragmentManager(), "hi");
+
                 long pos  = getAdapterPosition();
 
                 long ingPK = getIngredID(mItemList.get((int)pos).second);

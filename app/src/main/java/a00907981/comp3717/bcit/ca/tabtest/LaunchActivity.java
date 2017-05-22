@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.Query;
@@ -34,8 +35,11 @@ public class LaunchActivity extends AppCompatActivity {
         daoSession = ((App) getApplication()).getDaoSession();
         ingredientDao = daoSession.getIngredientDao();
 
-        populateDB(daoSession);
-
+        long val = ingredientDao.queryBuilder().count();
+        
+        if(val == 0) {
+            populateDB(daoSession);
+        }
     }
 
     @Override

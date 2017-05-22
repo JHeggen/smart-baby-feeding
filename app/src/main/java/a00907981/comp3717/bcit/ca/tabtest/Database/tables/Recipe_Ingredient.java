@@ -14,11 +14,16 @@ public class Recipe_Ingredient{
     private Long order;
     private Long ingre_id_FK;
     private Long recipe_id_FK;
-    @Generated(hash = 829206232)
-    public Recipe_Ingredient(Long order, Long ingre_id_FK, Long recipe_id_FK) {
+    private double weight_g;
+    private double weight_oz;
+    @Generated(hash = 364755730)
+    public Recipe_Ingredient(Long order, Long ingre_id_FK, Long recipe_id_FK,
+            double weight_g, double weight_oz) {
         this.order = order;
         this.ingre_id_FK = ingre_id_FK;
         this.recipe_id_FK = recipe_id_FK;
+        this.weight_g = weight_g;
+        this.weight_oz = weight_oz;
     }
     @Generated(hash = 1132476556)
     public Recipe_Ingredient() {
@@ -41,4 +46,17 @@ public class Recipe_Ingredient{
     public void setRecipe_id_FK(Long recipe_id_FK) {
         this.recipe_id_FK = recipe_id_FK;
     }
+    public double getWeight_g() {
+        return this.weight_g;
+    }
+    public void setWeight_g(double weight_g) {
+        this.weight_g = weight_g;
+    }
+    public double getWeight_oz() {
+        return this.weight_oz;
+    }
+    public void setWeight_oz(double weight_oz) {
+        this.weight_oz = weight_oz;
+    }
+   
 }
