@@ -264,7 +264,6 @@ public class TabActivity extends AppCompatActivity {
                         killTimer();
                         break;
                 }
-
             }
         });
     }
