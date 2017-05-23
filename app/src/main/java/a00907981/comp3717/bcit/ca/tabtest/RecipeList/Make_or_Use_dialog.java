@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 
 import a00907981.comp3717.bcit.ca.tabtest.TabActivity;
 
@@ -38,6 +39,11 @@ public class Make_or_Use_dialog extends DialogFragment {
         builder.setNegativeButton("Make the recipe", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+
+
+                Ingred_Weigh iWeight = new Ingred_Weigh();
+                iWeight.show(fm,"Dialog");
                 dismiss();
             }
         });

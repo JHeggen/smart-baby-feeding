@@ -21,7 +21,7 @@ public class Ingred_Weigh extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.ingred_create_frag, new RelativeLayout(getActivity()));
+        View view = getActivity().getLayoutInflater().inflate(R.layout.weigh_ingred_frag, new RelativeLayout(getActivity()));
         ingredientWeight = (EditText) view.findViewById(R.id.ingredWeight);
 
         builder = new AlertDialog.Builder(getActivity());
