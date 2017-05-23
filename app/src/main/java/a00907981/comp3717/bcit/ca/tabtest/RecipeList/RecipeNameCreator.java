@@ -5,14 +5,13 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import org.greenrobot.greendao.query.Query;
-
-import java.util.List;
 
 import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
@@ -70,6 +69,9 @@ public class RecipeNameCreator extends DialogFragment{
                         Recipes recipes = (Recipes) fm.findFragmentByTag("fragment");
                         recipes.queryDB();
                         recipes.setupListRecyclerView();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.addToBackStack(null);
+                        transaction.replace(R.id.container, Ingred.newInstance(recipe.getRecipe_name()), "fragment").commit();
 
                         dismiss();
                     } else {
