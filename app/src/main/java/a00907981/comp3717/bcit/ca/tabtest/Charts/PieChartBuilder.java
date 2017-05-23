@@ -93,8 +93,8 @@ public class PieChartBuilder {
         entries.add(new PieEntry(folic_acid / total_nutrients, "Folic Acid"));
 
         PieDataSet set = new PieDataSet(entries, "Nutrients Consumed");
-        set.setSliceSpace(8F);
-        set.setSelectionShift(10F);
+        set.setSliceSpace(0F);
+        set.setSelectionShift(18F);
         set.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
         PieData data = new PieData(set);
