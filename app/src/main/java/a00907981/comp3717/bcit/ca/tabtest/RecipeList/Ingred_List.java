@@ -28,6 +28,7 @@ import org.greenrobot.greendao.query.DeleteQuery;
 import org.greenrobot.greendao.query.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
@@ -48,6 +49,7 @@ public class Ingred_List extends Fragment {
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
     private long recipePK;
+    private long ingPK;
     private long ingPos;
 
     private RecipeDao recipeDao;
@@ -67,8 +69,15 @@ public class Ingred_List extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    public long getRecipePK(){
+        return recipePK;
+    }
 
+    public long getIngPK() { return ingPK; }
 
+    public long getIngPos(){
+        return ingPos;
+    }
 
     public long getIngredID(String ingName) {
         DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
@@ -285,12 +294,12 @@ public class Ingred_List extends Fragment {
             public void onItemClicked(View view) {
 
                 Ingredient_Amount ingredient_amount = new Ingredient_Amount();
-                ingredient_amount.show(getActivity().getFragmentManager(), "hi");
+                ingredient_amount.show(getFragmentManager(), "amount_dialog");
 
-                long pos  = getAdapterPosition();
+                ingPos  = getAdapterPosition();
+                ingPK = getIngredID(mItemList.get((int)ingPos).second);
 
-                long ingPK = getIngredID(mItemList.get((int)pos).second);
-
+                /**
                 DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
                 recipeIngDao = daoSession.getRecipe_IngredientDao();
                 Recipe_Ingredient ingred = new Recipe_Ingredient();
@@ -301,6 +310,7 @@ public class Ingred_List extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStackImmediate();
 
+                 */
             }
 
             @Override

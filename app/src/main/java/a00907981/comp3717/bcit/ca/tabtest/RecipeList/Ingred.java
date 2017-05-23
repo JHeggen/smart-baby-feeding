@@ -147,7 +147,7 @@ public class Ingred extends Fragment {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.addToBackStack(null);
-                transaction.replace(R.id.container, Ingred_List.newInstance(recipePK, ingredPos), "fragment").commit();
+                transaction.replace(R.id.container, Ingred_List.newInstance(recipePK, ingredPos), "ingre_list").commit();
 
 
 

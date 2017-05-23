@@ -42,10 +42,11 @@ import a00907981.comp3717.bcit.ca.tabtest.R;
 public class Recipes extends Fragment {
     private ArrayList<Pair<Long, String>> mItemArray;
     private DragListView mDragListView;
-    private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
 
+    private DaoSession daoSession;
     private RecipeDao recipeDao;
+    private Recipe_IngredientDao recipe_ingredientDao;
 
 
     public static Recipes newInstance() {
@@ -57,12 +58,14 @@ public class Recipes extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        daoSession = ((App)getActivity().getApplication()).getDaoSession();
+
     }
 
     public void queryDB(){
         mItemArray = new ArrayList<>();
 
-        DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
+
         recipeDao = daoSession.getRecipeDao();
 
         Query<Recipe> recipeQuery = recipeDao.queryBuilder().orderAsc(RecipeDao.Properties.Recipe_name).build();
@@ -179,7 +182,16 @@ public class Recipes extends Fragment {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
 
-                    DeleteQuery<Recipe> deleteQuery = recipeDao.queryBuilder().where(RecipeDao.Properties.Recipe_name.eq(mItemArray.get(pos).second)).buildDelete();
+                    recipe_ingredientDao = daoSession.getRecipe_IngredientDao();
+
+                    Recipe recipeQuery = recipeDao.queryBuilder().where(RecipeDao.Properties.Recipe_name.eq(mItemArray.get(pos).second)).build().unique();
+
+                    long recipeID = recipeQuery.getRecipe_id();
+
+                    DeleteQuery<Recipe_Ingredient> recipe_ingredientDeleteQuery = recipe_ingredientDao.queryBuilder().where(Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipeID)).buildDelete();
+                    recipe_ingredientDeleteQuery.executeDeleteWithoutDetachingEntities();
+
+                    DeleteQuery<Recipe> deleteQuery = recipeDao.queryBuilder().where(RecipeDao.Properties.Recipe_id.eq(recipeID)).buildDelete();
                     deleteQuery.executeDeleteWithoutDetachingEntities();
 
                     mDragListView.getAdapter().removeItem(pos);
