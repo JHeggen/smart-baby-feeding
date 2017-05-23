@@ -28,6 +28,7 @@ import org.greenrobot.greendao.query.DeleteQuery;
 import org.greenrobot.greendao.query.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
@@ -48,11 +49,14 @@ public class Ingred_List extends Fragment {
     private ListSwipeHelper mSwipeHelper;
     private MySwipeRefreshLayout mRefreshLayout;
     private long recipePK;
+    private long ingPK;
     private long ingPos;
 
-    private RecipeDao recipeDao;
-    private Recipe_IngredientDao recipeIngDao;
+    DaoSession daoSession;
     private IngredientDao ingredientDao;
+    private Recipe_IngredientDao recipe_ingredientDao;
+
+    private long offset;
 
     public static Ingred_List newInstance(long recPK, long ingPOS) {
         Ingred_List temp = new Ingred_List();
@@ -64,14 +68,20 @@ public class Ingred_List extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        daoSession = ((App)getActivity().getApplication()).getDaoSession();
+
     }
 
+    public long getRecipePK(){
+        return recipePK;
+    }
 
-
+    public long getIngPK() { return ingPK; }
 
     public long getIngredID(String ingName) {
-        DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
+
         ingredientDao = daoSession.getIngredientDao();
 
         Query<Ingredient> ingredQuery = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingredient_name.eq(ingName)).build();
@@ -199,8 +209,17 @@ public class Ingred_List extends Fragment {
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
-                    DeleteQuery<Ingredient> deleteQuery = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingredient_name.eq(mItemArray.get(pos).second)).buildDelete();
+
+                    recipe_ingredientDao = daoSession.getRecipe_IngredientDao();
+
+                    long ingredientPK = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingredient_name.eq(mItemArray.get(pos).second)).build().unique().getIngre_id();
+
+                    DeleteQuery<Recipe_Ingredient> recipe_ingredientDeleteQuery = recipe_ingredientDao.queryBuilder().where(Recipe_IngredientDao.Properties.Ingre_id_FK.eq(ingredientPK)).buildDelete();
+                    recipe_ingredientDeleteQuery.executeDeleteWithoutDetachingEntities();
+
+                    DeleteQuery<Ingredient> deleteQuery = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingre_id.eq(ingredientPK)).buildDelete();
                     deleteQuery.executeDeleteWithoutDetachingEntities();
+
                     mDragListView.getAdapter().removeItem(pos);
 
                 }
@@ -285,12 +304,12 @@ public class Ingred_List extends Fragment {
             public void onItemClicked(View view) {
 
                 Ingredient_Amount ingredient_amount = new Ingredient_Amount();
-                ingredient_amount.show(getActivity().getFragmentManager(), "hi");
+                ingredient_amount.show(getFragmentManager(), "amount_dialog");
 
-                long pos  = getAdapterPosition();
+                ingPos  = getAdapterPosition();
+                ingPK = getIngredID(mItemList.get((int)ingPos).second);
 
-                long ingPK = getIngredID(mItemList.get((int)pos).second);
-
+                /**
                 DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
                 recipeIngDao = daoSession.getRecipe_IngredientDao();
                 Recipe_Ingredient ingred = new Recipe_Ingredient();
@@ -301,6 +320,7 @@ public class Ingred_List extends Fragment {
                 FragmentManager fm = getFragmentManager();
                 fm.popBackStackImmediate();
 
+                 */
             }
 
             @Override

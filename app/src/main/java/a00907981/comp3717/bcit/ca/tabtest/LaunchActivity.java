@@ -36,7 +36,7 @@ public class LaunchActivity extends AppCompatActivity {
         ingredientDao = daoSession.getIngredientDao();
 
         long val = ingredientDao.queryBuilder().count();
-        
+
         if(val == 0) {
             populateDB(daoSession);
         }

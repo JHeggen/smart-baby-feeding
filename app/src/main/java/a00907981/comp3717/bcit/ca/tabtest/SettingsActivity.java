@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    public static boolean isMetric = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
