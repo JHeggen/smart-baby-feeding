@@ -71,6 +71,7 @@ public class PieChartBuilder {
             vit_a += h.getNet_vit_a();
             vit_d += h.getNet_vit_d();
             folic_acid += h.getNet_folic_acid();
+            
         }
 
         total_nutrients = energy + prot + fat + ca + iron;
