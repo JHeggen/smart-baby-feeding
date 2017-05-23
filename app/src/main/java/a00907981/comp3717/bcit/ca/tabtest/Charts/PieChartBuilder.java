@@ -96,7 +96,7 @@ public class PieChartBuilder {
         set.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
         PieData data = new PieData(set);
-        
+
         pieChart.setUsePercentValues(true);
         pieChart.setDrawHoleEnabled(false);
         pieChart.setDrawEntryLabels(false);
