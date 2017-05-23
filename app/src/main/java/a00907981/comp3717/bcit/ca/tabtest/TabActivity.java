@@ -316,31 +316,20 @@ public class TabActivity extends AppCompatActivity {
                         removeToggle();
                         break;
                     case "Tab2":
-<<<<<<< HEAD
                         getSupportActionBar().setTitle("Recipe Browser");
                         killTimer();
                         break;
                     case "Tab3":
                         getSupportActionBar().setTitle("Feeding History");
                         killTimer();
-=======
                         //killTimer();
                         removeToggle();
-                        break;
-                    case "Tab3":
-                        //killTimer();
->>>>>>> 6fc5703ed9908da44f5956090fd6ad702cc76706
-                        createChart();
-                        addToggle();
                         break;
                     case "Tab4":
-<<<<<<< HEAD
                         getSupportActionBar().setTitle("Notifications");
                         killTimer();
-=======
                         //killTimer();
                         removeToggle();
->>>>>>> 6fc5703ed9908da44f5956090fd6ad702cc76706
                         break;
                     default:
                         //killTimer();
