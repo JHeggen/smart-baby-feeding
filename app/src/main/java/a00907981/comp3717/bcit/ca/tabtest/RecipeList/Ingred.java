@@ -28,6 +28,7 @@ import com.woxthebox.draglistview.DragListView;
 import com.woxthebox.draglistview.swipe.ListSwipeHelper;
 import com.woxthebox.draglistview.swipe.ListSwipeItem;
 
+import org.greenrobot.greendao.query.DeleteQuery;
 import org.greenrobot.greendao.query.Query;
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -87,6 +88,16 @@ public class Ingred extends Fragment {
         recipeIngQuery.where(Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK),Recipe_IngredientDao.Properties.Ingre_id_FK.eq(ingredID));
         Recipe_Ingredient recIng = recipeIngQuery.unique();
         return recIng.getOrder();
+
+
+
+    }
+    public long getIngredPk(String name) {
+        DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
+        ingredientDao = daoSession.getIngredientDao();
+        QueryBuilder<Ingredient> ingredientQuery = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingredient_name.eq(name));
+        Ingredient ingre = ingredientQuery.unique();
+        return ingre.getIngre_id();
 
 
 
@@ -219,6 +230,8 @@ public class Ingred extends Fragment {
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
+                    DeleteQuery<Recipe_Ingredient> deleteQuery = recipeIngDao.queryBuilder().where(Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK), Recipe_IngredientDao.Properties.Ingre_id_FK.eq(getIngredPk(mItemArray.get(pos).second))).buildDelete();
+                    deleteQuery.executeDeleteWithoutDetachingEntities();
                     mDragListView.getAdapter().removeItem(pos);
                 }
             }
