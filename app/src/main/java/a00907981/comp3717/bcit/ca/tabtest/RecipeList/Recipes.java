@@ -54,6 +54,8 @@ public class Recipes extends Fragment {
     private RecipeDao recipeDao;
     private Recipe_IngredientDao recipe_ingredientDao;
 
+    private long ingPos;
+
 
     public static Recipes newInstance() {
         return new Recipes();
@@ -283,13 +285,13 @@ public class Recipes extends Fragment {
 
             @Override
             public void onItemClicked(View view) {
-
+                ingPos  = getAdapterPosition();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
 
                 Bundle args = new Bundle();
                 args.putInt("pos", getAdapterPosition());
 
-                Make_or_Use_dialog make_or_use_dialog = new Make_or_Use_dialog();
+                Make_or_Use_dialog make_or_use_dialog = Make_or_Use_dialog.newInstance(mItemList.get((int)ingPos).second);
                 make_or_use_dialog.setArguments(args);
                 make_or_use_dialog.show(fm, "mou_dialog");
 
