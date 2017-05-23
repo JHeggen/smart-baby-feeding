@@ -82,7 +82,6 @@ public class TabActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         createTabs();
-        createChart();
         showFragment(Recipes.newInstance());
         refreshSpinner();
     }
@@ -249,19 +248,20 @@ public class TabActivity extends AppCompatActivity {
                 switch(tabId) {
                     case "Tab1":
                         refreshSpinner();
-                        //createTimer();
+                        createTimer();
                         break;
                     case "Tab2":
-                        //killTimer();
+                        killTimer();
                         break;
                     case "Tab3":
-                        //killTimer();
+                        killTimer();
+                        createChart();
                         break;
                     case "Tab4":
-                        //killTimer();
+                        killTimer();
                         break;
                     default:
-                        //killTimer();
+                        killTimer();
                         break;
                 }
 
