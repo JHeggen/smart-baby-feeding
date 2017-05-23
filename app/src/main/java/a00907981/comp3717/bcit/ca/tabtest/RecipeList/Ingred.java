@@ -230,7 +230,9 @@ public class Ingred extends Fragment {
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
-                    DeleteQuery<Recipe_Ingredient> deleteQuery = recipeIngDao.queryBuilder().where(Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK), Recipe_IngredientDao.Properties.Ingre_id_FK.eq(getIngredPk(mItemArray.get(pos).second))).buildDelete();
+                    DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
+                    recipeIngDao = daoSession.getRecipe_IngredientDao();
+                    DeleteQuery<Recipe_Ingredient> deleteQuery = recipeIngDao.queryBuilder().where(Recipe_IngredientDao.Properties.Ingre_id_FK.eq(getIngredPk(mItemArray.get(pos).second)),Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK)).buildDelete();
                     deleteQuery.executeDeleteWithoutDetachingEntities();
                     mDragListView.getAdapter().removeItem(pos);
                 }
