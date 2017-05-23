@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_menu"
-        android:icon="@drawable/ducky"
+        android:icon="@drawable/gearicon"
         android:title="Settings"
         app:showAsAction="always"
         android:onClick="goToSettings"/>

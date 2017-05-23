@@ -1,5 +1,6 @@
 package a00907981.comp3717.bcit.ca.tabtest.RecipeList;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +15,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -280,7 +283,39 @@ public class Recipes extends Fragment {
             @Override
             public void onItemClicked(View view) {
 
+                // custom dialog
+                final Dialog dialog = new Dialog(getContext());
+                dialog.setContentView(R.layout.recipe_select_dialog);
+                dialog.setTitle(mItemArray.get(getAdapterPosition()).second + ": ");
 
+                Button makeRecipeButton = (Button) dialog.findViewById(R.id.makeRecipeButton);
+                Button beginFeedingButton = (Button) dialog.findViewById(R.id.beginFeedingButton);
+
+                makeRecipeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //getActivity().setContentView(R.layout.feed_layout);
+                        dialog.dismiss();
+                    }
+                });
+
+                beginFeedingButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getActivity().setContentView(R.layout.feed_layout);
+                        Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner);
+                        List<String> spinnerList = new ArrayList<>();
+                        spinnerList.add(mItemArray.get(getAdapterPosition()).second);
+                        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, spinnerList);
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                        spinner.setAdapter(arrayAdapter);
+
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
 
             }
 
