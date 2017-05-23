@@ -8,6 +8,16 @@
         android:layout_height="479dp"
         android:id="@+id/pchart"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="match_parent"
+        android:layout_height="479dp"
+        android:id="@+id/lchart"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"
+        />
 
 </FrameLayout>

@@ -1,6 +1,8 @@
 package a00907981.comp3717.bcit.ca.tabtest.Charts;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -69,6 +71,7 @@ public class PieChartBuilder {
             vit_a += h.getNet_vit_a();
             vit_d += h.getNet_vit_d();
             folic_acid += h.getNet_folic_acid();
+            
         }
 
         total_nutrients = energy + prot + fat + ca + iron;
@@ -102,5 +105,13 @@ public class PieChartBuilder {
         pieChart.setDrawEntryLabels(false);
         pieChart.setData(data);
         pieChart.invalidate();
+
+        Description description = new Description();
+        description.setText("Nutrient Consumption Ratio");
+
+        pieChart.setDescription(description);
+
+        Legend legend = pieChart.getLegend();
+        legend.setWordWrapEnabled(true);
     }
 }
