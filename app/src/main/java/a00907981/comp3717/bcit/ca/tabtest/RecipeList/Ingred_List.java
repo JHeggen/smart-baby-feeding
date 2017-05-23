@@ -210,18 +210,12 @@ public class Ingred_List extends Fragment {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
 
-                    recipe_ingredientDao = daoSession.getRecipe_IngredientDao();
-
                     long ingredientPK = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingredient_name.eq(mItemArray.get(pos).second)).build().unique().getIngre_id();
-
-                    DeleteQuery<Recipe_Ingredient> recipe_ingredientDeleteQuery = recipe_ingredientDao.queryBuilder().where(Recipe_IngredientDao.Properties.Ingre_id_FK.eq(ingredientPK)).buildDelete();
-                    recipe_ingredientDeleteQuery.executeDeleteWithoutDetachingEntities();
 
                     DeleteQuery<Ingredient> deleteQuery = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingre_id.eq(ingredientPK)).buildDelete();
                     deleteQuery.executeDeleteWithoutDetachingEntities();
 
                     mDragListView.getAdapter().removeItem(pos);
-
                 }
             }
         });

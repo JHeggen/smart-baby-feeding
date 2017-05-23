@@ -54,6 +54,7 @@ public class Ingred extends Fragment {
     private long recipePK;
     private long ingredPos;
 
+    private DaoSession daoSession;
     private RecipeDao recipeDao;
     private Recipe_IngredientDao recipeIngDao;
     private IngredientDao ingredientDao;
@@ -66,11 +67,13 @@ public class Ingred extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        daoSession = ((App)getActivity().getApplication()).getDaoSession();
     }
 
     public void setRecipePK() {
-        DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
+
         recipeDao = daoSession.getRecipeDao();
 
         Query<Recipe> recipeQuery = recipeDao.queryBuilder().where(RecipeDao.Properties.Recipe_name.eq(recipeName.toString())).build();
@@ -206,6 +209,8 @@ public class Ingred extends Fragment {
 
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
+
+
                     FragmentManager fm = getActivity().getSupportFragmentManager();
 
 
@@ -218,10 +223,14 @@ public class Ingred extends Fragment {
                 if (swipedDirection == ListSwipeItem.SwipeDirection.RIGHT) {
                     Pair<Long, String> adapterItem = (Pair<Long, String>) item.getTag();
                     int pos = mDragListView.getAdapter().getPositionForItem(adapterItem);
-                    DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
+
                     recipeIngDao = daoSession.getRecipe_IngredientDao();
-                    DeleteQuery<Recipe_Ingredient> deleteQuery = recipeIngDao.queryBuilder().where(Recipe_IngredientDao.Properties.Ingre_id_FK.eq(getIngredPk(mItemArray.get(pos).second)),Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK)).buildDelete();
-                    deleteQuery.executeDeleteWithoutDetachingEntities();
+
+                    long ingredientPK = ingredientDao.queryBuilder().where(IngredientDao.Properties.Ingredient_name.eq(mItemArray.get(pos).second)).build().unique().getIngre_id();
+
+                    DeleteQuery<Recipe_Ingredient> recipe_ingredientDeleteQuery = recipeIngDao.queryBuilder().where(Recipe_IngredientDao.Properties.Ingre_id_FK.eq(ingredientPK)).buildDelete();
+                    recipe_ingredientDeleteQuery.executeDeleteWithoutDetachingEntities();
+
                     mDragListView.getAdapter().removeItem(pos);
                 }
             }
