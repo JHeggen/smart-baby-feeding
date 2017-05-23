@@ -80,18 +80,6 @@ public class Ingred extends Fragment {
         Toast.makeText(getContext(), "IN RecipeQuesry pk is " + recipePK, Toast.LENGTH_SHORT).show();
     }
 
-    public long getIngredPos(long ingredID) {
-
-        DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
-        recipeIngDao = daoSession.getRecipe_IngredientDao();
-        QueryBuilder<Recipe_Ingredient> recipeIngQuery = recipeIngDao.queryBuilder();
-        recipeIngQuery.where(Recipe_IngredientDao.Properties.Recipe_id_FK.eq(recipePK),Recipe_IngredientDao.Properties.Ingre_id_FK.eq(ingredID));
-        Recipe_Ingredient recIng = recipeIngQuery.unique();
-        return recIng.getOrder();
-
-
-
-    }
     public long getIngredPk(String name) {
         DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
         ingredientDao = daoSession.getIngredientDao();
