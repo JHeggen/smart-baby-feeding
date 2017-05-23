@@ -6,17 +6,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.ActionMenuItemView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -35,6 +39,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import a00907981.comp3717.bcit.ca.tabtest.Charts.LineChartBuilder;
 import a00907981.comp3717.bcit.ca.tabtest.Charts.PieChartBuilder;
 import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
@@ -60,6 +65,11 @@ public class TabActivity extends AppCompatActivity {
 
     private boolean startNotNeg;
     private boolean endNotNeg;
+    private boolean isPie = true;
+
+
+    public LineChart lineChart;
+    public PieChart pieChart;
 
     private Timer timer;
 
@@ -83,6 +93,7 @@ public class TabActivity extends AppCompatActivity {
 
         createTabs();
         createChart();
+
         showFragment(Recipes.newInstance());
         refreshSpinner();
     }
@@ -165,10 +176,17 @@ public class TabActivity extends AppCompatActivity {
     public void createChart(){
 
         PieChart pieChart = (PieChart) findViewById(R.id.pchart);
+        LineChart lineChart = (LineChart) findViewById(R.id.lchart);
 
         PieChartBuilder pieChartBuilder = new PieChartBuilder(pieChart, daoSession);
+        LineChartBuilder lineChartBuilder = new LineChartBuilder(lineChart, daoSession);
 
-        pieChartBuilder.createChart();
+        if(lineChart.getVisibility() == View.GONE){
+            pieChartBuilder.createChart();
+        } else {
+            lineChartBuilder.createChart();
+        }
+
 
         /**
         PieChart pchart = (PieChart)findViewById(R.id.pchart);
@@ -197,6 +215,44 @@ public class TabActivity extends AppCompatActivity {
         pchart.invalidate();
 
          */
+    }
+
+    public void addToggle(){
+        ActionMenuItemView item = (ActionMenuItemView) findViewById(R.id.toggleButton);
+
+        item.setEnabled(true);
+    }
+
+    public void removeToggle(){
+        ActionMenuItemView item = (ActionMenuItemView) findViewById(R.id.toggleButton);
+
+        item.setEnabled(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+
+        switch(menuItem.getItemId()) {
+            case R.id.toggleButton:
+                lineChart = (LineChart) findViewById(R.id.lchart);
+                pieChart = (PieChart) findViewById(R.id.pchart);
+
+                if (isPie) {
+                    lineChart.setVisibility(View.GONE);
+                    pieChart.setVisibility(View.VISIBLE);
+                    createChart();
+                    isPie = false;
+                    menuItem.setTitle("Line Chart");
+                } else {
+                    lineChart.setVisibility(View.VISIBLE);
+                    pieChart.setVisibility(View.GONE);
+                    createChart();
+                    isPie = true;
+                    menuItem.setTitle("Pie Chart");
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     public void switchTabs(int tab){
@@ -255,20 +311,25 @@ public class TabActivity extends AppCompatActivity {
                 switch(tabId) {
                     case "Tab1":
                         refreshSpinner();
-                        createTimer();
+                        //createTimer();
+                        removeToggle();
                         break;
                     case "Tab2":
-                        killTimer();
+                        //killTimer();
+                        removeToggle();
                         break;
                     case "Tab3":
-                        killTimer();
+                        //killTimer();
                         createChart();
+                        addToggle();
                         break;
                     case "Tab4":
-                        killTimer();
+                        //killTimer();
+                        removeToggle();
                         break;
                     default:
-                        killTimer();
+                        //killTimer();
+                        removeToggle();
                         break;
                 }
             }

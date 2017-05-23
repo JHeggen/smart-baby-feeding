@@ -32,9 +32,9 @@ public class SettingsActivity extends AppCompatActivity {
         Switch simpleSwitch = (Switch) findViewById(R.id.switch1);
         Boolean switchState = simpleSwitch.isChecked();
         if (!switchState) {
-            isMetric = true;
-        } else {
             isMetric = false;
+        } else {
+            isMetric = true;
         }
 
         //initialize datepicker
