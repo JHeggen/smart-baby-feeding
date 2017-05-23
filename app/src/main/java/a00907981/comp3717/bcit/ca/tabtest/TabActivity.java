@@ -82,6 +82,7 @@ public class TabActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
         createTabs();
+        createChart();
         showFragment(Recipes.newInstance());
         refreshSpinner();
     }
@@ -198,6 +199,28 @@ public class TabActivity extends AppCompatActivity {
          */
     }
 
+    public void switchTabs(int tab){
+        TabHost host = (TabHost) findViewById(R.id.tabhost);
+
+        switch(tab){
+            case 0:
+                host.setCurrentTab(0);
+                break;
+            case 1:
+                host.setCurrentTab(1);
+                break;
+            case 2:
+                host.setCurrentTab(2);
+                break;
+            case 3:
+                host.setCurrentTab(3);
+                break;
+            default:
+                host.setCurrentTab(0);
+                break;
+        }
+    }
+
     public void createTabs(){
         TabHost host = (TabHost) findViewById(R.id.tabhost);
         host.setup();
@@ -222,23 +245,7 @@ public class TabActivity extends AppCompatActivity {
         spec.setIndicator("Alarm");
         host.addTab(spec);
 
-        switch(getFocus()){
-            case 0:
-                host.setCurrentTab(0);
-                break;
-            case 1:
-                host.setCurrentTab(1);
-                break;
-            case 2:
-                host.setCurrentTab(2);
-                break;
-            case 3:
-                host.setCurrentTab(3);
-                break;
-            default:
-                host.setCurrentTab(0);
-                break;
-        }
+        switchTabs(getFocus());
 
         host.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
@@ -266,6 +273,11 @@ public class TabActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void setSpinnerFocus(int focus){
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner.setSelection(focus);
     }
 
     public void refreshSpinner() {
@@ -300,8 +312,10 @@ public class TabActivity extends AppCompatActivity {
     }
 
     public void killTimer(){
-        timer.purge();
-        timer.cancel();
+        if(timer != null) {
+            timer.purge();
+            timer.cancel();
+        }
     }
 
 

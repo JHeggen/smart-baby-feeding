@@ -1,6 +1,6 @@
 package a00907981.comp3717.bcit.ca.tabtest.RecipeList;
 
-import android.app.Dialog;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -284,39 +284,15 @@ public class Recipes extends Fragment {
             @Override
             public void onItemClicked(View view) {
 
-                // custom dialog
-                final Dialog dialog = new Dialog(getContext());
-                dialog.setContentView(R.layout.recipe_select_dialog);
-                dialog.setTitle(mItemArray.get(getAdapterPosition()).second + ": ");
+                FragmentManager fm = getActivity().getSupportFragmentManager();
 
-                Button makeRecipeButton = (Button) dialog.findViewById(R.id.makeRecipeButton);
-                Button beginFeedingButton = (Button) dialog.findViewById(R.id.beginFeedingButton);
+                Bundle args = new Bundle();
+                args.putInt("pos", getAdapterPosition());
 
-                makeRecipeButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //getActivity().setContentView(R.layout.feed_layout);
-                        dialog.dismiss();
-                    }
-                });
-
-                beginFeedingButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getActivity().setContentView(R.layout.feed_layout);
-                        Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner);
-                        List<String> spinnerList = new ArrayList<>();
-                        spinnerList.add(mItemArray.get(getAdapterPosition()).second);
-                        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, spinnerList);
-                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinner.setAdapter(arrayAdapter);
-
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-
+                Make_or_Use_dialog make_or_use_dialog = new Make_or_Use_dialog();
+                make_or_use_dialog.setArguments(args);
+                make_or_use_dialog.show(fm, "mou_dialog");
+                
             }
 
             @Override
