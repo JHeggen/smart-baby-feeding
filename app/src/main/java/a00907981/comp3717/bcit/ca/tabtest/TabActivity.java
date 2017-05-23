@@ -25,13 +25,17 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.greenrobot.greendao.query.Query;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import a00907981.comp3717.bcit.ca.tabtest.Charts.PieChartBuilder;
 import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.History;
@@ -96,21 +100,86 @@ public class TabActivity extends AppCompatActivity {
         return true;
     }
 
+    public void saveHistory(View view){
+
+        HistoryDao historyDao = daoSession.getHistoryDao();
+        RecipeDao recipeDao = daoSession.getRecipeDao();
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        String recipeName = spinner.getSelectedItem().toString();
+
+        Recipe recipe = recipeDao.queryBuilder().where(RecipeDao.Properties.Recipe_name.eq(recipeName)).build().unique();
+
+        double net_energy = recipe.getEnergy_total() * netWeight;
+        double net_prot = recipe.getProt_total() * netWeight;
+        double net_cho = recipe.getCho_total() * netWeight;
+        double net_fat = recipe.getFat_total() * netWeight;
+        double net_na = recipe.getNa_total() * netWeight;
+        double net_k = recipe.getK_total() * netWeight;
+        double net_cl = recipe.getCl_total() * netWeight;
+        double net_ca = recipe.getCa_total() * netWeight;
+        double net_po = recipe.getPo_total() * netWeight;
+        double net_mg = recipe.getMg_total() * netWeight;
+        double net_iron = recipe.getIron_total() * netWeight;
+        double net_vit_a = recipe.getVit_a_total() * netWeight;
+        double net_vit_d = recipe.getVit_d_total() * netWeight;
+        double net_folic_acid = recipe.getFolic_acid_total() * netWeight;
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        DateFormat timeFormat = new SimpleDateFormat("HHmmss");
+
+        Date date = new Date();
+
+        double date_now = Double.parseDouble(dateFormat.format(date));
+        double time_now = Double.parseDouble(timeFormat.format(date));
+
+        History history = new History();
+        history.setRecipe(recipe);
+        history.setDate(date_now);
+        history.setTime(time_now);
+        history.setNet_energy(net_energy);
+        history.setNet_prot(net_prot);
+        history.setNet_cho(net_cho);
+        history.setNet_fat(net_fat);
+        history.setNet_na(net_na);
+        history.setNet_k(net_k);
+        history.setNet_cl(net_cl);
+        history.setNet_ca(net_ca);
+        history.setNet_po(net_po);
+        history.setNet_mg(net_mg);
+        history.setNet_iron(net_iron);
+        history.setNet_vit_a(net_vit_a);
+        history.setNet_vit_d(net_vit_d);
+        history.setNet_folic_acid(net_folic_acid);
+
+        historyDao.insert(history);
+
+        finish();
+    }
+
     public void goToSettings(MenuItem item){
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
     public void createChart(){
+
+        PieChart pieChart = (PieChart) findViewById(R.id.pchart);
+
+        PieChartBuilder pieChartBuilder = new PieChartBuilder(pieChart, daoSession);
+
+        pieChartBuilder.createChart();
+
+        /**
         PieChart pchart = (PieChart)findViewById(R.id.pchart);
 
-        /*
+
         Query<History> historyQuery = historyDao.queryBuilder().build();
 
         for(History h : historyQuery.list()){
             Log.d("myTag" , h.getDate());
         }
-        */
+
 
         List<PieEntry> entries = new ArrayList<>();
 
@@ -126,6 +195,8 @@ public class TabActivity extends AppCompatActivity {
         PieData data = new PieData(set);
         pchart.setData(data);
         pchart.invalidate();
+
+         */
     }
 
     public void createTabs(){
