@@ -292,7 +292,7 @@ public class Recipes extends Fragment {
                 Make_or_Use_dialog make_or_use_dialog = new Make_or_Use_dialog();
                 make_or_use_dialog.setArguments(args);
                 make_or_use_dialog.show(fm, "mou_dialog");
-                
+
             }
 
             @Override
