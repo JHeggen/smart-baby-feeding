@@ -88,9 +88,10 @@ public class Ingredient_Amount extends DialogFragment {
                 recipeIngDao.insert(ingred);
 
                 try{
-                    updateRecipe(ingPK, recipePK, metric);
+                    updateRecipe(recipePK, ingPK, metric);
                 } catch (Exception e) {
                     Log.d("MyTag", "ingPK: " + ingPK);
+                    Log.d("error", "error:" + e.getMessage());
                 }
 
                 ingred_list.queryDB();

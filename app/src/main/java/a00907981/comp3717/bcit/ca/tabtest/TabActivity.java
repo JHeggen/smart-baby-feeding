@@ -25,6 +25,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.greenrobot.greendao.query.Query;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -47,12 +49,6 @@ public class TabActivity extends AppCompatActivity {
 
     private EditText   editWeightVal;
     private double     btWeightVal = -1;
-
-    private double     feTotal;
-    private double     fatTotal;
-    private double     caTotal;
-    private double     protTotal;
-    private double     enerTotal;
 
     private double     startWeight;
     private double     endWeight;
@@ -300,34 +296,36 @@ public class TabActivity extends AppCompatActivity {
         TableRow    tableRow4 = (TableRow) findViewById(R.id.row4);
         TableRow    tableRow5 = (TableRow) findViewById(R.id.row5);
 
-        Query<Recipe> nutritionQuery = recipeDao.queryBuilder().build();
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
-        for(Recipe nutrient : nutritionQuery.list()) {
+        String recipeName = spinner.getSelectedItem().toString();
 
-            //use where to specify which recipe it is?
-            feTotal   = (btWeightVal * nutrient.getIron_total());
-            caTotal   = (btWeightVal * nutrient.getCa_total());
-            fatTotal  = (btWeightVal * nutrient.getFat_total());
-            protTotal = (btWeightVal * nutrient.getProt_total());
-            enerTotal = (btWeightVal * nutrient.getEnergy_total());
-        }
+        Recipe recipe = recipeDao.queryBuilder().where(RecipeDao.Properties.Recipe_name.eq(recipeName)).build().unique();
+
+        double     feTotal = netWeight * recipe.getIron_total();
+        double     fatTotal = netWeight * recipe.getFat_total();
+        double     caTotal = netWeight * recipe.getCa_total();
+        double     protTotal = netWeight * recipe.getProt_total();
+        double     enerTotal = netWeight * recipe.getEnergy_total();
+
+        NumberFormat format = new DecimalFormat("#0.00 units");
 
         TextView tv;
         // Fill out our cells
         tv = (TextView) tableRow1.findViewById(R.id.item1);
-        tv.setText("Iron: " + feTotal);
+        tv.setText("Iron: " + format.format(feTotal));
 
         tv = (TextView) tableRow2.findViewById(R.id.item2);
-        tv.setText("Calcium: " + caTotal);
+        tv.setText("Calcium: " + format.format(caTotal));
 
         tv = (TextView) tableRow3.findViewById(R.id.item3);
-        tv.setText("Fat: " + fatTotal);
+        tv.setText("Fat: " + format.format(fatTotal));
 
         tv = (TextView) tableRow4.findViewById(R.id.item4);
-        tv.setText("Protein: " + protTotal);
+        tv.setText("Protein: " + format.format(protTotal));
 
         tv = (TextView) tableRow5.findViewById(R.id.item5);
-        tv.setText("Energy: " + enerTotal);
+        tv.setText("Energy: " + format.format(enerTotal));
     }
 
     public int getFocus(){
