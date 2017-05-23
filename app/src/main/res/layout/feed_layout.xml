@@ -47,17 +47,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button"
-        android:layout_alignBaseline="@+id/button3"
-        android:layout_alignBottom="@+id/button3"
-        android:layout_alignStart="@+id/editText"
-        android:layout_marginStart="63dp" />
+        android:layout_above="@+id/tableLayout"
+        android:layout_alignEnd="@+id/editText" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="44dp"
         android:layout_below="@+id/button3"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:id="@+id/tableLayout">
 
         <TableRow android:layout_height="1px" android:background="#BDBDBD">
             <TextView android:layout_span="2" android:layout_height="1px"
@@ -188,10 +187,9 @@
         app:srcCompat="@drawable/castle"
         android:id="@+id/imageView"
         android:layout_width="100dp"
-        android:layout_marginBottom="103dp"
-        android:layout_marginStart="6dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_alignTop="@+id/tableLayout"
+        android:layout_alignEnd="@+id/editText"
+        android:layout_marginTop="89dp" />
 
     <Button
         android:text="Save"
@@ -200,6 +198,7 @@
         android:id="@+id/save_history"
         android:layout_alignBottom="@+id/imageView"
         android:layout_alignStart="@+id/button3"
-        android:onClick="saveHistory"/>
+        android:onClick="saveHistory"
+        android:layout_toStartOf="@+id/editText" />
 
 </RelativeLayout>

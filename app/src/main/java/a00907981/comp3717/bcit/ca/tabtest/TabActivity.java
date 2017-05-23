@@ -254,17 +254,21 @@ public class TabActivity extends AppCompatActivity {
 
                 switch(tabId) {
                     case "Tab1":
+                        getSupportActionBar().setTitle("Feeding");
                         refreshSpinner();
                         createTimer();
                         break;
                     case "Tab2":
+                        getSupportActionBar().setTitle("Recipe Browser");
                         killTimer();
                         break;
                     case "Tab3":
+                        getSupportActionBar().setTitle("Feeding History");
                         killTimer();
                         createChart();
                         break;
                     case "Tab4":
+                        getSupportActionBar().setTitle("Notifications");
                         killTimer();
                         break;
                     default:
