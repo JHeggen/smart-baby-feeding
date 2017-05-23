@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,7 @@ import java.util.List;
 import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.*;
 import a00907981.comp3717.bcit.ca.tabtest.R;
+import a00907981.comp3717.bcit.ca.tabtest.TabActivity;
 
 /**
  * Created by Getry on 5/11/2017.
@@ -76,8 +79,6 @@ public class Recipes extends Fragment {
         for(Recipe recipe : recipeQuery.list()){
             mItemArray.add(new Pair<Long, String>(i++, recipe.getRecipe_name()));
         }
-
-        Toast.makeText(getContext(), "IN QUERYDB", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -308,7 +309,6 @@ public class Recipes extends Fragment {
                         spinnerList.add(mItemArray.get(getAdapterPosition()).second);
                         ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item, spinnerList);
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
                         spinner.setAdapter(arrayAdapter);
 
                         dialog.dismiss();
@@ -321,7 +321,7 @@ public class Recipes extends Fragment {
 
             @Override
             public boolean onItemLongClicked(View view) {
-                Toast.makeText(view.getContext(), "Item long clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "Item long clicked", Toast.LENGTH_SHORT).show();
                 return true;
             }
 

@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar" >
-        <item name="colorPrimaryDark">@color/cardview_dark_background</item>
-        <item name="colorAccent">@color/pastel5</item>
+<resources>
+        <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar" >
+        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorAccent">@color/cardview_dark_background</item>
         <item name="android:colorForeground">@color/pastel5</item>
         <item name="android:colorBackground">@color/pastel2</item>
         <item name="android:textColorPrimaryInverse">@color/pastel1</item>
-        <item name="android:windowBackground">@color/pastel3</item>
-    </style></resources>
+        <item name="android:windowBackground">@color/pastel6</item>
+                <item name="android:statusBarColor">@android:color/black</item>
+                <item name="android:navigationBarColor">@android:color/black</item>
+                <item name="android:textColorPrimary">@android:color/black</item>
+                <item name="android:textColorSecondary">@android:color/black</item>
+                <item name="android:textColorSecondaryInverse">@android:color/black</item>
+                <item name="colorPrimary">@color/cardview_dark_background</item>
+        </style>
+
+</resources>

@@ -100,8 +100,6 @@ public class Ingred_List extends Fragment {
         for(Ingredient recipe : ingredQuery.list()){
             mItemArray.add(new Pair<Long, String>(i++, recipe.getIngredient_name()));
         }
-
-        Toast.makeText(getContext(), "IN QUERYDB", Toast.LENGTH_SHORT).show();
     }
 
     public void setRecipePK(long rpk) {
@@ -319,7 +317,7 @@ public class Ingred_List extends Fragment {
 
             @Override
             public boolean onItemLongClicked(View view) {
-                Toast.makeText(view.getContext(), "Item long clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "Item long clicked", Toast.LENGTH_SHORT).show();
                 return true;
             }
         }

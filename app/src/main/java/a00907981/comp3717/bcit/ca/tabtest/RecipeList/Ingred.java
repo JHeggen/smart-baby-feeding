@@ -80,7 +80,7 @@ public class Ingred extends Fragment {
 
         Recipe recipe = recipeQuery.unique();
         recipePK = recipe.getRecipe_id();
-        Toast.makeText(getContext(), "IN RecipeQuesry pk is " + recipePK, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "IN RecipeQuesry pk is " + recipePK, Toast.LENGTH_SHORT).show();
     }
 
     public long getIngredPk(String name) {
@@ -312,12 +312,12 @@ public class Ingred extends Fragment {
 
             @Override
             public void onItemClicked(View view) {
-                Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "Item clicked", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public boolean onItemLongClicked(View view) {
-                Toast.makeText(view.getContext(), "Item long clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), "Item long clicked", Toast.LENGTH_SHORT).show();
                 return true;
             }
         }

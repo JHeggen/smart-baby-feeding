@@ -52,11 +52,11 @@ public class IngredCreator extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (name.getText().toString().trim().equals("")) {
-                    name.setError("Ingrediant Name is Required!");
-                    name.setHint("Please enter Ingrediant Name");
+                    name.setError("Ingredient Name is Required!");
+                    name.setHint("Please enter Ingredient Name");
                 } else if (id.getText().toString().trim().equals("")) {
-                    id.setError("Unit Messurement is Required!");
-                    id.setHint("Please enter Unit Messurement");
+                    id.setError("Unit Measurement is Required!");
+                    id.setHint("Please enter Unit Measurement");
 
                 } else {
                     DaoSession daoSession = ((App)getActivity().getApplication()).getDaoSession();
