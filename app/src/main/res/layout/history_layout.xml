@@ -5,7 +5,7 @@
 
     <com.github.mikephil.charting.charts.PieChart
         android:layout_width="match_parent"
-        android:layout_height="433dp"
+        android:layout_height="479dp"
         android:id="@+id/pchart"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />

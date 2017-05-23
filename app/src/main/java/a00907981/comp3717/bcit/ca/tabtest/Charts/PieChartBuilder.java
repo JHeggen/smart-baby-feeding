@@ -11,11 +11,9 @@ import org.greenrobot.greendao.query.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-import a00907981.comp3717.bcit.ca.tabtest.Database.dao.App;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.DaoSession;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.History;
 import a00907981.comp3717.bcit.ca.tabtest.Database.tables.HistoryDao;
-import a00907981.comp3717.bcit.ca.tabtest.R;
 
 /**
  * Created by Pkao on 2017-05-18.
@@ -73,24 +71,24 @@ public class PieChartBuilder {
             folic_acid += h.getNet_folic_acid();
         }
 
-        total_nutrients = energy + prot + cho + fat + na + k + cl + ca + po + mg + iron + vit_a + vit_d + folic_acid;
+        total_nutrients = energy + prot + fat + ca + iron;
 
         List<PieEntry> entries = new ArrayList<>();
 
         entries.add(new PieEntry(energy / total_nutrients, "Energy"));
         entries.add(new PieEntry(prot / total_nutrients, "Protein"));
-        entries.add(new PieEntry(cho / total_nutrients, "Carbohydrates"));
+        //entries.add(new PieEntry(cho / total_nutrients, "Carbohydrates"));
         entries.add(new PieEntry(fat / total_nutrients, "Fat"));
-        entries.add(new PieEntry(na / total_nutrients, "Sodium"));
-        entries.add(new PieEntry(k / total_nutrients, "Potasium"));
-        entries.add(new PieEntry(cl / total_nutrients, "Chlorine"));
+        //entries.add(new PieEntry(na / total_nutrients, "Sodium"));
+        //entries.add(new PieEntry(k / total_nutrients, "Potasium"));
+        //entries.add(new PieEntry(cl / total_nutrients, "Chlorine"));
         entries.add(new PieEntry(ca / total_nutrients, "Calcium"));
-        entries.add(new PieEntry(po / total_nutrients, "Polonium?"));
-        entries.add(new PieEntry(mg / total_nutrients, "Magnesium"));
+        //entries.add(new PieEntry(po / total_nutrients, "Polonium?"));
+        //entries.add(new PieEntry(mg / total_nutrients, "Magnesium"));
         entries.add(new PieEntry(iron / total_nutrients, "Iron"));
-        entries.add(new PieEntry(vit_a / total_nutrients, "Vitamin A"));
-        entries.add(new PieEntry(vit_d / total_nutrients, "Vitamin D"));
-        entries.add(new PieEntry(folic_acid / total_nutrients, "Folic Acid"));
+        //entries.add(new PieEntry(vit_a / total_nutrients, "Vitamin A"));
+        //entries.add(new PieEntry(vit_d / total_nutrients, "Vitamin D"));
+        //entries.add(new PieEntry(folic_acid / total_nutrients, "Folic Acid"));
 
         PieDataSet set = new PieDataSet(entries, "Nutrients Consumed");
         set.setSliceSpace(0F);
@@ -98,6 +96,9 @@ public class PieChartBuilder {
         set.setColors(ColorTemplate.VORDIPLOM_COLORS);
 
         PieData data = new PieData(set);
+        
+        pieChart.setUsePercentValues(true);
+        pieChart.setDrawHoleEnabled(false);
         pieChart.setDrawEntryLabels(false);
         pieChart.setData(data);
         pieChart.invalidate();
